@@ -33,3 +33,7 @@
 JavaScript
 ## СУБД
 PostgreSQL
+## Frontend
+React JS
+## Backend
+Node JS с фреймворком Express
