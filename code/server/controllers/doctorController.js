@@ -18,8 +18,18 @@ class DoctorController {
 
   }
   async getAll(req, res) {
-    const doctor = await Doctors.findAll()
-    return res.json(doctor)
+    let {specialitySpecialityId, limit, page} = req.query
+    page = page || 1
+    limit = limit || 9
+    let offset = page * limit - limit
+    let doctors;
+    if (!specialitySpecialityId) {
+      doctors = await Doctors.findAndCountAll({limit, offset})
+    }
+    if (specialitySpecialityId) {
+      doctors = await Doctors.findAndCountAll({where:{specialitySpecialityId}, limit, offset})
+    }
+    return res.json(doctors)
   }
   async getOne(req, res) {
 

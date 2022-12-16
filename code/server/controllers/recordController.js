@@ -1,4 +1,5 @@
-
+const {Records} = require('../models/models')
+const ApiError = require('../error/ApiError');
 class RecordController {
   async create(req, res) {
 

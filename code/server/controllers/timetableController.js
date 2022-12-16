@@ -12,7 +12,35 @@ class TimetableController {
       }
   }
   async getAll(req, res) {
-    const timetable = await Timetable.findAll()
+    let {day, doctorDoctorId, cabinetCabinetId, limit, page} = req.query
+        page = page || 1
+        limit = limit || 9
+        let offset = page * limit - limit
+        let timetable;
+        if (!day && !doctorDoctorId && !cabinetCabinetId) {
+            timetable = await Timetable.findAndCountAll({limit, offset})
+        }
+        if (day && !doctorDoctorId && !cabinetCabinetId) {
+            timetable = await Timetable.findAndCountAll({where:{day}, limit, offset})
+        }
+        if (!day && doctorDoctorId && !cabinetCabinetId) {
+            timetable = await Timetable.findAndCountAll({where:{doctorDoctorId}, limit, offset})
+        }
+        if (day && doctorDoctorId && !cabinetCabinetId) {
+            timetable = await Timetable.findAndCountAll({where:{doctorDoctorId, day}, limit, offset})
+        }
+        if (!day && !doctorDoctorId && cabinetCabinetId) {
+            timetable = await Timetable.findAndCountAll({where:{cabinetCabinetId},limit, offset})
+        }
+        if (day && !doctorDoctorId && cabinetCabinetId) {
+            timetable = await Timetable.findAndCountAll({where:{day, cabinetCabinetId}, limit, offset})
+        }
+        if (!day && doctorDoctorId && cabinetCabinetId) {
+            timetable = await Timetable.findAndCountAll({where:{doctorDoctorId, cabinetCabinetId}, limit, offset})
+        }
+        if (day && doctorDoctorId && cabinetCabinetId) {
+            timetable = await Timetable.findAndCountAll({where:{doctorDoctorId, day, cabinetCabinetId}, limit, offset})
+        }
     return res.json(timetable)
   }
   async delet(req, res) {

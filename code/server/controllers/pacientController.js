@@ -1,3 +1,4 @@
+const {Pacients} = require('../models/models')
 const ApiError = require('../error/ApiError');
 
 class PacientController {
