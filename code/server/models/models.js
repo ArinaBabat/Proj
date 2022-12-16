@@ -7,6 +7,7 @@ const Pacients = sequelize.define('pacient', {
     addres_id:{type: DataTypes.INTEGER},
     phone: {type: DataTypes.INTEGER, unique: true, allowNull: false},
     password: {type: DataTypes.STRING},
+    role: {type: DataTypes.STRING, defaultValue: "PACIENT"},
 })
 const Doctors = sequelize.define('doctor', {
     doctor_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
