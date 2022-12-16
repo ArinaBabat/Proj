@@ -1,5 +1,6 @@
 const Router = require('express')
 const router = new Router()
-router.post('/', checkRole('HEAD_PHYSICIAN'), typeController.create)
-router.get('/', typeController.getAll)
+const timetableController = require('../controllers/timetableController.js')
+router.post('/', timetableController.create)
+router.get('/', timetableController.getAll)
 module.exports = router

@@ -1,6 +1,7 @@
 const Router = require('express')
 const router = new Router()
-router.post('/',checkRole('HEAD_PHYSICIAN'),)
-router.get('/',)
-router.delete('/',checkRole('HEAD_PHYSICIAN'),)
+const cabinetController = require('../controllers/cabinetController.js')
+router.post('/',cabinetController.create)
+router.get('/',cabinetController.getAll)
+router.delete('/',cabinetController.delet)
 module.exports = router
