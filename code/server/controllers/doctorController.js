@@ -45,9 +45,10 @@ class DoctorController {
     const token = generateJwt(doctor.doctor_id, doctor.role)
     return res.json({token})
   }
-  async check(req, res) {
-
-  }
+  async check(req, res, next) {
+        const token = generateJwt(req.doctor.doctor_id, req.doctor.role)
+        return res.json({token})
+    }
   async getAll(req, res) {
     let {specialitySpecialityId, limit, page} = req.query
     page = page || 1
