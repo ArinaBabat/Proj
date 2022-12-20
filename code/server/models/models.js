@@ -7,13 +7,12 @@ const Pacients = sequelize.define('pacient', {
     addres_id:{type: DataTypes.INTEGER},
     phone: {type: DataTypes.INTEGER, unique: true, allowNull: false},
     password: {type: DataTypes.STRING},
-    role: {type: DataTypes.STRING, defaultValue: "PACIENT"},
 })
 const Doctors = sequelize.define('doctor', {
     doctor_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     first_name: {type: DataTypes.STRING, allowNull: false},
     last_name: {type: DataTypes.STRING, allowNull: false},
-    password: {type: DataTypes.STRING},
+    password: {type: DataTypes.STRING,allowNull: false},
     role: {type: DataTypes.STRING, defaultValue: "DOCTOR"},
 })
 const Timetable = sequelize.define('timetable', {
@@ -24,7 +23,7 @@ const Timetable = sequelize.define('timetable', {
 })
 const Records = sequelize.define('record', {
     record_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    time:{type: DataTypes.INTEGER},
+    time:{type: DataTypes.INTEGER,allowNull: false},
 })
 const Prescriptions = sequelize.define('prescription', {
     diagnostic: {type: DataTypes.STRING},

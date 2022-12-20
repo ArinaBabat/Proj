@@ -1,10 +1,14 @@
-const {Timetable} = require('../models/models')
+const {Timetable, Doctors} = require('../models/models')
 const ApiError = require('../error/ApiError');
 
 class TimetableController {
   async create(req, res, next) {
     try {
       const {day, start_of_admission, end_of_reception, cabinetCabinetId, doctorDoctorId} = req.body
+      if (!doctorDoctorId || !day|| !start_of_admission || !end_of_reception || !cabinetCabinetId) {
+            return next(ApiError.badRequest('Необходимо заполнить все поля'))
+      }
+      
       const timetable = await Timetable.create({day, start_of_admission, end_of_reception, cabinetCabinetId, doctorDoctorId})
       return res.json(timetable)
     } catch (e) {
