@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {Context} from "../index";
-import {TIMETABLE_ROUTE,DOCTOR_PACIENTS_ROUTE,PACIENT_LOGIN_ROUTE,DOCTOR_LOGIN_ROUTE,DOCTOR_TIMETABLE_ROUTE,PRESCRIPTIONS_ROUTE,NEW_RECORD_ROUTE,PACIENT_RECORDS_ROUTE} from "../utils/consts";
+import {TIMETABLE_ROUTE,DOCTOR_PACIENTS_ROUTE,HEAD_PHYSICIAN_ROUTE,PACIENT_LOGIN_ROUTE,DOCTOR_LOGIN_ROUTE,DOCTOR_TIMETABLE_ROUTE,PRESCRIPTIONS_ROUTE,NEW_RECORD_ROUTE,PACIENT_RECORDS_ROUTE} from "../utils/consts";
 import {observer} from "mobx-react-lite";
 import {NavLink} from "react-router-dom";
 import {Button} from "react-bootstrap";
@@ -17,6 +17,7 @@ const NavBar = observer( () => {
           user.setUser({})
           user.setIsAuth(false)
           user.setIsDoc(false)
+          user.setIsHp(false)
           navigate(TIMETABLE_ROUTE)
       }
 
@@ -24,12 +25,20 @@ const NavBar = observer( () => {
     <Navbar bg="primary" variant="dark">
       <Container>
         <Button size="lg"  onClick={() => navigate(TIMETABLE_ROUTE)}>Синяя птица</Button>
-        {user.isDoc ?
+        {user.isHp ?
           <Nav className="ml-auto">
+            <Button onClick={() => navigate(HEAD_PHYSICIAN_ROUTE)}>Управление</Button>
             <Button onClick={() => navigate(DOCTOR_TIMETABLE_ROUTE)}>Моё расписание</Button>
             <Button onClick={() => navigate(DOCTOR_PACIENTS_ROUTE)}>Мои пациенты</Button>
             <Button onClick={() => logOut()}>Выход</Button>
-          </Nav>
+            </Nav>
+            :
+            user.isDoc ?
+              <Nav className="ml-auto">
+            <Button onClick={() => navigate(DOCTOR_TIMETABLE_ROUTE)}>Моё расписание</Button>
+            <Button onClick={() => navigate(DOCTOR_PACIENTS_ROUTE)}>Мои пациенты</Button>
+            <Button onClick={() => logOut()}>Выход</Button>
+            </Nav>
           :
           user.isAuth ?
             <Nav className="ml-auto">
