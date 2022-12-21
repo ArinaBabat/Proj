@@ -2,7 +2,7 @@ import React from 'react';
 const Pacients = () => {
   return (
     <div>
-      Prescriptions
+      Pacients
     </div>
   );
 };

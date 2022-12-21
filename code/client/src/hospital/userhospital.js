@@ -1,8 +1,8 @@
 import {makeAutoObservable} from "mobx";
 export default class UserHospital{
   constructor() {
-    this._isAuth = false
-    this._isDoc = false
+    this._isAuth = true
+    this._isDoc = true
     this._user = {}
     makeAutoObservable(this)
   }
