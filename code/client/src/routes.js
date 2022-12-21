@@ -9,10 +9,6 @@ import NewRecord from "./pages/NewRecord";
 import Prescriptions from "./pages/Prescriptions";
 export const authRoutes = [
   {
-    path: TIMETABLE_ROUTE,
-    Component: Timetable
-  },
-  {
     path: HEAD_PHYSICIAN_ROUTE,
     Component: HeadPhysician
   },
