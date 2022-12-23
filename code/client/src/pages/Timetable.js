@@ -10,14 +10,14 @@ const Timetable = observer(() => {
   return (
     <Container
       className="d-flex justify-content-center align-items-center"
-      style={{height: window.innerHeight +150}}
+      style={{height: window.innerHeight*1.25}}
       >
       <div>
       <Table responsive="sm">
         <thead>
           <tr>
             <th>#</th>
-            <th>Table heading</th>
+            <th>Timetable</th>
             <th>Table heading</th>
             <th>Table heading</th>
             <th>Table heading</th>

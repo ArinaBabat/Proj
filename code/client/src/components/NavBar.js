@@ -8,6 +8,7 @@ import {observer} from "mobx-react-lite";
 import {NavLink} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import {useNavigate} from 'react-router-dom'
+import {$authHost, $host} from "../index";
 
 const NavBar = observer( () => {
   const {user} = useContext(Context)
@@ -18,6 +19,8 @@ const NavBar = observer( () => {
           user.setIsAuth(false)
           user.setIsDoc(false)
           user.setIsHp(false)
+          //const {data} = await $host.post('api/doctor/login', {doctor_id, password})
+          localStorage.setItem('token', '')
           navigate(TIMETABLE_ROUTE)
       }
 

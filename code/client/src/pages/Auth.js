@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
-import {DOCTOR_LOGIN_ROUTE} from "../utils/consts";
+import {DOCTOR_LOGIN_ROUTE, TIMETABLE_ROUTE} from "../utils/consts";
 import {login} from "../http/userAPI";
 
 const Auth = observer( () => {
@@ -14,12 +14,22 @@ const Auth = observer( () => {
   const isDoct = location.pathname === DOCTOR_LOGIN_ROUTE
   const [doctor_id, setId] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   const signIn = async () =>{
-    console.log('id: ', doctor_id)
-    console.log('pass: ', password)
-    const response = await login(doctor_id, password)
-    console.log(response)
+    try {
+      let doctor;
+      doctor = await login(doctor_id, password)
+      console.log(doctor)
+      user.setUser(doctor)
+      user.setIsAuth(true)
+      user.setIsDoc(true)
+      if (doctor.role === "HEAD_PHYSICIAN"){user.setIsHp(true)}
+      navigate(TIMETABLE_ROUTE)
+    }catch (e) {
+      alert(e.response.data.message)
+    }
+
   }
 
   return (
