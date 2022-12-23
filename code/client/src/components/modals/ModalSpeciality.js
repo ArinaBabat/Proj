@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import Modal from "react-bootstrap/Modal";
 import {Form, Button} from "react-bootstrap";
 import Dropdown from 'react-bootstrap/Dropdown';
+import {Context} from "../../index";
 
-//import {createType} from "../../http/deviceAPI";
-
-const CreateType = ({show, onHide}) => {
+const ModalSpeciality = ({show, onHide}) => {
   //  const [value, setValue] = useState('')
 //
 //  const addType = () => {
@@ -14,6 +13,7 @@ const CreateType = ({show, onHide}) => {
 //            onHide()
 //        })
 //    }
+const {tim} = useContext
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
     href=""
@@ -75,12 +75,9 @@ const CustomMenu = React.forwardRef(
               </Dropdown.Toggle>
 
               <Dropdown.Menu as={CustomMenu}>
-                <Dropdown.Item eventKey="1">Red</Dropdown.Item>
-                <Dropdown.Item eventKey="2">Blue</Dropdown.Item>
-                <Dropdown.Item eventKey="3">
-                  Orange
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="1">Red-Orange</Dropdown.Item>
+                {tim.spec.map( spec =>
+                  <Dropdown.Item key={spec.speciality_id}> {spec.name} </Dropdown.Item>
+                )}
               </Dropdown.Menu>
             </Dropdown>
                 <Form>
@@ -99,4 +96,4 @@ const CustomMenu = React.forwardRef(
     );
 };
 
-export default CreateType;
+export default ModalSpeciality;
