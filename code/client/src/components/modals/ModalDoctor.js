@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Modal from "react-bootstrap/Modal";
 import {Form, Button} from "react-bootstrap";
+import {Context} from "../../index";
 //import {createType} from "../../http/deviceAPI";
 
 const CreateType = ({show, onHide}) => {
+  const {doctor} = useContext(Context)
   //  const [value, setValue] = useState('')
 //
 //  const addType = () => {

@@ -11,16 +11,18 @@ const App = observer(() => {
   const {doc} = useContext(Context)
   const {pacient} = useContext(Context)
   const [loading, setLoading] = useState(true)
-  useEffect(() => {
-       pcheck().then(pdata => {
-           pacient.setPacient(pdata)
-           pacient.setIsAuth(true)
-       }).finally(() => setLoading(false))
-   }, [])
-   useEffect(() => {
+  if (pacient){
+    useEffect(() => {
+      pcheck().then(pdata => {
+        pacient.setPacient(pdata)
+        pacient.setIsAuth(true)
+      }).finally(() => setLoading(false))
+    }, [])
+  }
+
+    useEffect(() => {
         dcheck().then(data => {
             doc.setDoc(data)
-          //  pacient.setIsAuth(true)
             if (data.role === "DOCTOR"){
               doc.setIsDoc(true)
             }
@@ -29,7 +31,8 @@ const App = observer(() => {
               doc.setIsHp(true)
             }
         }).finally(() => setLoading(false))
-    }, [])
+      }, [])
+    
     if (loading) {
         return <Spinner animation={"grow"}/>
     }

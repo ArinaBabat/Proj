@@ -5,7 +5,7 @@ const Pacients = sequelize.define('pacient', {
     first_name: {type: DataTypes.STRING},
     last_name: {type: DataTypes.STRING},
     addres_id:{type: DataTypes.INTEGER},
-    phone: {type: DataTypes.INTEGER, unique: true, allowNull: false},
+    mail: {type: DataTypes.STRING, unique: true, allowNull: false},
     password: {type: DataTypes.STRING},
     role: {type: DataTypes.STRING, defaultValue: "PACIENT"},
 })

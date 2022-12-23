@@ -13,7 +13,7 @@ const Auth = observer( () => {
   const location = useLocation()
   const isDoct = location.pathname === DOCTOR_LOGIN_ROUTE
   const [doctor_id, setId] = useState('')
-  const [password, setPassword] = useState('')
+  const [dpassword, dsetPassword] = useState('')
   const navigate = useNavigate()
 
   const {pacient} = useContext(Context);
@@ -22,14 +22,15 @@ const Auth = observer( () => {
   const [last_name, setLast_name] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
+  const [ppassword, psetPassword] = useState('')
 
   const click = async () => {
     try {
       let data;
       if (isLogin) {
-        data = await plogin(phone, password);
+        data = await plogin(phone, ppassword);
       } else {
-        data = await registration(name, last_name, address, phone, password);
+        data = await registration(name, last_name, address, phone, ppassword);
       }
       pacient.setPacient(pacient);
       pacient.setIsAuth(true);
@@ -42,7 +43,7 @@ const Auth = observer( () => {
   const dsignIn = async () =>{
     try {
       let doctor;
-      doctor = await dlogin(doctor_id, password)
+      doctor = await dlogin(doctor_id, dpassword)
       console.log(doctor)
       doc.setDoc(doctor)
       doc.setIsDoc(true)
@@ -74,9 +75,9 @@ const Auth = observer( () => {
       <Form.Control
         className="mt-3"
         placeholder="Введите ваш пароль..."
-        value={password}
+        value={dpassword}
         onChange = {e => {
-          setPassword(e.target.value)}}
+          dsetPassword(e.target.value)}}
         type="password"
       />
       <Button
@@ -104,8 +105,8 @@ const Auth = observer( () => {
               <Form.Control
                 className="mt-3"
                 placeholder="Введите ваш пароль..."
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={ppassword}
+                onChange={(e) => psetPassword(e.target.value)}
                 type="password"
               />
             </Container>
@@ -138,8 +139,8 @@ const Auth = observer( () => {
               <Form.Control
                 className="mt-3"
                 placeholder="Введите ваш пароль..."
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={ppassword}
+                onChange={(e) => psetPassword(e.target.value)}
                 type="password"
               />
 
