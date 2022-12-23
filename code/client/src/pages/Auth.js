@@ -5,8 +5,8 @@ import Row from "react-bootstrap/Row";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
-import {DOCTOR_LOGIN_ROUTE, TIMETABLE_ROUTE} from "../utils/consts";
-import {login} from "../http/userAPI";
+import {PACIENT_REGISTRATION_ROUTE,PACIENT_LOGIN_ROUTE, DOCTOR_LOGIN_ROUTE, TIMETABLE_ROUTE} from "../utils/consts";
+import {plogin,dlogin, registration} from "../http/userAPI";
 
 const Auth = observer( () => {
   const {doc} = useContext(Context)
@@ -16,10 +16,33 @@ const Auth = observer( () => {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  const signIn = async () =>{
+  const {pacient} = useContext(Context);
+  const isLogin = location.pathname === PACIENT_LOGIN_ROUTE;
+  const [name, setName] = useState("");
+  const [last_name, setLast_name] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const click = async () => {
+    try {
+      let data;
+      if (isLogin) {
+        data = await plogin(phone, password);
+      } else {
+        data = await registration(name, last_name, address, phone, password);
+      }
+      pacient.setPacient(pacient);
+      pacient.setIsAuth(true);
+      navigate(TIMETABLE_ROUTE);
+    } catch (e) {
+      alert(e.response.data.message);
+    }
+  };
+
+  const dsignIn = async () =>{
     try {
       let doctor;
-      doctor = await login(doctor_id, password)
+      doctor = await dlogin(doctor_id, password)
       console.log(doctor)
       doc.setDoc(doctor)
       doc.setIsDoc(true)
@@ -59,7 +82,7 @@ const Auth = observer( () => {
       <Button
         className="mt-3"
         variant={"outline-success"}
-        onClick={signIn}
+        onClick={dsignIn}
       >
         Войти
       </Button>
@@ -67,14 +90,80 @@ const Auth = observer( () => {
       </Card>
 
     :
-    <Button
-      className="mt-3"
-      variant={"outline-success"}
+    <Card style={{ width: 600 }} className="p-5">
+        <h2 className="m-auto">{isLogin ? "Авторизация" : "Регистрация"}</h2>
+        <Form className="d-flex flex-column">
+          {isLogin ? (
+            <Container>
+              <Form.Control
+                className="mt-3"
+                placeholder="Введите ваш телефон..."
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+              <Form.Control
+                className="mt-3"
+                placeholder="Введите ваш пароль..."
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+              />
+            </Container>
+          ) : (
+            <Container>
+              <Form.Control
+                className="mt-3"
+                placeholder="Введите ваше имя..."
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <Form.Control
+                className="mt-3"
+                placeholder="Введите вашу фамилию..."
+                value={last_name}
+                onChange={(e) => setLast_name(e.target.value)}
+              />
+              <Form.Control
+                className="mt-3"
+                placeholder="Введите ваш телефон..."
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+              <Form.Control
+                className="mt-3"
+                placeholder="Введите ваш адрес..."
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+              <Form.Control
+                className="mt-3"
+                placeholder="Введите ваш пароль..."
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+              />
 
-    >
-      dd
-    </Button>
+              <div id="signInDiv"></div>
 
+            </Container>
+          )}
+
+          <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
+            {isLogin ? (
+              <div>
+                <NavLink to={PACIENT_REGISTRATION_ROUTE}>Регистрация</NavLink>
+              </div>
+            ) : (
+              <div>
+                <NavLink to={PACIENT_LOGIN_ROUTE}>Вход</NavLink>
+              </div>
+            )}
+            <Button variant={"outline-success"} onClick={click}>
+              {isLogin ? "Войти" : "Регистрация"}
+            </Button>
+          </Row>
+        </Form>
+      </Card>
   }
 </Container>
 );
