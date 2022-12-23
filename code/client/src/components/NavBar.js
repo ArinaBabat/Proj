@@ -11,44 +11,49 @@ import {useNavigate} from 'react-router-dom'
 import {$authHost, $host} from "../index";
 
 const NavBar = observer( () => {
-  const {user} = useContext(Context)
+  const {pacient} = useContext(Context)
+  const {doc} = useContext(Context)
   const navigate = useNavigate()
 
-  const logOut = () => {
-          user.setUser({})
-          user.setIsAuth(false)
-          user.setIsDoc(false)
-          user.setIsHp(false)
-          //const {data} = await $host.post('api/doctor/login', {doctor_id, password})
+  const logOutD = () => {
+          doc.setDoc({})
+          doc.setIsDoc(false)
+          doc.setIsHp(false)
           localStorage.setItem('token', '')
           navigate(TIMETABLE_ROUTE)
       }
+      const logOutP = () => {
+              pacient.setPacient({})
+              pacient.setIsAuth(false)
+              localStorage.setItem('token', '')
+              navigate(TIMETABLE_ROUTE)
+          }
 
   return (
     <Navbar bg="primary" variant="dark">
       <Container>
         <Button size="lg"  onClick={() => navigate(TIMETABLE_ROUTE)}>Синяя птица</Button>
-        {user.isHp ?
+        {doc.isHp ?
           <Nav className="ml-auto">
             <Button onClick={() => navigate(HEAD_PHYSICIAN_ROUTE)}>Управление</Button>
             <Button onClick={() => navigate(DOCTOR_TIMETABLE_ROUTE)}>Моё расписание</Button>
             <Button onClick={() => navigate(DOCTOR_PACIENTS_ROUTE)}>Мои пациенты</Button>
-            <Button onClick={() => logOut()}>Выход</Button>
+            <Button onClick={() => logOutD()}>Выход</Button>
             </Nav>
             :
-            user.isDoc ?
+            doc.isDoc ?
               <Nav className="ml-auto">
             <Button onClick={() => navigate(DOCTOR_TIMETABLE_ROUTE)}>Моё расписание</Button>
             <Button onClick={() => navigate(DOCTOR_PACIENTS_ROUTE)}>Мои пациенты</Button>
-            <Button onClick={() => logOut()}>Выход</Button>
+            <Button onClick={() => logOutD()}>Выход</Button>
             </Nav>
           :
-          user.isAuth ?
+          pacient.isAuth ?
             <Nav className="ml-auto">
               <Button onClick={() => navigate(PRESCRIPTIONS_ROUTE)}>Мои назначения</Button>
               <Button onClick={() => navigate(NEW_RECORD_ROUTE)}>Запись к врачу</Button>
               <Button onClick={() => navigate(PACIENT_RECORDS_ROUTE)}>Предстоящие записи</Button>
-              <Button onClick={() => logOut()}>Выход</Button>
+              <Button onClick={() => logOutP()}>Выход</Button>
             </Nav>
           :
           <Nav className="ml-auto">

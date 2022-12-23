@@ -9,7 +9,7 @@ import {DOCTOR_LOGIN_ROUTE, TIMETABLE_ROUTE} from "../utils/consts";
 import {login} from "../http/userAPI";
 
 const Auth = observer( () => {
-  const {user} = useContext(Context)
+  const {doc} = useContext(Context)
   const location = useLocation()
   const isDoct = location.pathname === DOCTOR_LOGIN_ROUTE
   const [doctor_id, setId] = useState('')
@@ -21,10 +21,9 @@ const Auth = observer( () => {
       let doctor;
       doctor = await login(doctor_id, password)
       console.log(doctor)
-      user.setUser(doctor)
-      user.setIsAuth(true)
-      user.setIsDoc(true)
-      if (doctor.role === "HEAD_PHYSICIAN"){user.setIsHp(true)}
+      doc.setDoc(doctor)
+      doc.setIsDoc(true)
+      if (doctor.role === "HEAD_PHYSICIAN"){doc.setIsHp(true)}
       navigate(TIMETABLE_ROUTE)
     }catch (e) {
       alert(e.response.data.message)

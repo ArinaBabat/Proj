@@ -4,30 +4,36 @@ import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar";
 import {observer} from "mobx-react-lite";
 import {Context} from "./index";
-import {check} from "./http/userAPI";
+import {pcheck,dcheck} from "./http/userAPI";
 import {Spinner} from "react-bootstrap";
 
 const App = observer(() => {
-  const {user} = useContext(Context)
+  const {doc} = useContext(Context)
+  const {pacient} = useContext(Context)
   const [loading, setLoading] = useState(true)
-
-  console.log("oppa ",user)
+  useEffect(() => {
+       pcheck().then(pdata => {
+           pacient.setPacient(pdata)
+           pacient.setIsAuth(true)
+       }).finally(() => setLoading(false))
+   }, [])
    useEffect(() => {
-        check().then(data => {
-            user.setUser(data)
-            user.setIsAuth(true)
+        dcheck().then(data => {
+            doc.setDoc(data)
+          //  pacient.setIsAuth(true)
             if (data.role === "DOCTOR"){
-              user.setIsDoc(true)
+              doc.setIsDoc(true)
             }
             if (data.role === "HEAD_PHYSICIAN"){
-              user.setIsDoc(true)
-              user.setIsHp(true)
+              doc.setIsDoc(true)
+              doc.setIsHp(true)
             }
         }).finally(() => setLoading(false))
     }, [])
     if (loading) {
         return <Spinner animation={"grow"}/>
     }
+
   return (
     <BrowserRouter>
       <NavBar />

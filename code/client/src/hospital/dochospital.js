@@ -1,15 +1,10 @@
 import {makeAutoObservable} from "mobx";
-export default class UserHospital{
+export default class DocHospital{
   constructor() {
-    this._isAuth = false
     this._isDoc = false
     this._isHp = false
-    this._user = {}
+    this._doc = {}
     makeAutoObservable(this)
-  }
-
-  setIsAuth(bool) {
-    this._isAuth = bool
   }
   setIsDoc(bool) {
     this._isDoc = bool
@@ -17,20 +12,17 @@ export default class UserHospital{
   setIsHp(bool) {
     this._isHp = bool
   }
-  setUser(user) {
-    this._user = user
+  setDoc(doc) {
+    this._doc = doc
   }
 
-  get isAuth() {
-    return this._isAuth
-  }
   get isDoc() {
     return this._isDoc
   }
   get isHp() {
     return this._isHp
   }
-  get user() {
-    return this._user
+  get doc() {
+    return this._doc
   }
 }
