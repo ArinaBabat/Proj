@@ -1,4 +1,4 @@
-import React, {useState,useContext} from 'react';
+import React, {useState,useContext,useEffect} from 'react';
 import Modal from "react-bootstrap/Modal";
 import {Form, Button} from "react-bootstrap";
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -55,8 +55,6 @@ const CustomMenu = React.forwardRef(
     );
   },
 );
-
-
     return (
         <Modal
             show={show}

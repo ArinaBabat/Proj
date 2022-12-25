@@ -1,4 +1,4 @@
-const {Doctors, Specialties} = require('../models/models')
+const {Doctors, Specialties,Users} = require('../models/models')
 const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -25,6 +25,7 @@ class DoctorController {
       }
       const hashPassword = await bcrypt.hash(password, 5)
       const doctor = await Doctors.create({first_name, last_name, password: hashPassword, specialitySpecialityId, role})
+      const user = await Users.create({login:doctor.doctor_id, tab:true})
       const token = generateJwt(doctor.doctor_id, doctor.role)
       return res.json({token})
     } catch (e) {

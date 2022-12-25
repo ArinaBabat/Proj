@@ -27,11 +27,6 @@ export default class TimHospital {
           {timetable_id: 6, day: 'y', start_of_admission: 1236, end_of_reception:13546, doctorDoctorId:2, cabinetCabinetId:2},
           {timetable_id: 7, day: 'u', start_of_admission: 1237, end_of_reception:13547, doctorDoctorId:3, cabinetCabinetId:1},
         ]
-//        this._selectedType = {}
-//        this._selectedBrand = {}
-//        this._page = 1
-//        this._totalCount = 0
-//        this._limit = 3
         makeAutoObservable(this)
     }
     setSpec(spec) {

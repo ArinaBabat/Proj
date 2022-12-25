@@ -7,6 +7,7 @@ const prescriptionRouter = require('./prescriptionRouter.js')
 const recordRouter = require('./recordRouter.js')
 const specialityRouter = require('./specialityRouter.js')
 const timetableRouter = require('./timetableRouter.js')
+const userRouter = require('./userRouter.js')
 
 router.use('/cabinet', cabinetRouter)
 router.use('/doctor', doctorRouter)
@@ -15,5 +16,6 @@ router.use('/prescription', prescriptionRouter)
 router.use('/record', recordRouter)
 router.use('/speciality', specialityRouter)
 router.use('/timetable', timetableRouter)
+router.use('/user', userRouter)
 
 module.exports = router

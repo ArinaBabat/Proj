@@ -38,6 +38,10 @@ const Specialties = sequelize.define('speciality', {
     speciality_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
 })
+const Users = sequelize.define('user', {
+    login: {type: DataTypes.STRING, allowNull: false},
+    tab: {type: DataTypes.BOOLEAN},
+})
 Doctors.hasOne(Pacients)
 Pacients.belongsTo(Doctors)
 
@@ -72,5 +76,6 @@ module.exports = {
     Records,
     Prescriptions,
     Cabinets,
-    Specialties
+    Specialties,
+    Users
 }
