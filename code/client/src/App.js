@@ -11,11 +11,12 @@ const App = observer(() => {
   const {doc} = useContext(Context)
   const {pacient} = useContext(Context)
   const [loading, setLoading] = useState(true)
-  check().then( tab => {
-    if (tab){
+  //try{
+  //check().then( tab => {
+    //if (tab){
       useEffect(() => {
         dcheck().then(data => {
-          doc.setDoc(true)
+          doc.setDoc(data)
           if (data.role === "DOCTOR"){
             doc.setIsDoc(true)
           }
@@ -25,15 +26,20 @@ const App = observer(() => {
           }
         }).finally(() => setLoading(false))
       }, [])
-    }else{
+    //}else{
       useEffect(() => {
         pcheck().then(data=> {
-          pacient.setPacient(true)
+          pacient.setUser(data)
           pacient.setIsAuth(true)
         }).finally(() => setLoading(false))
       }, [])
-    }
-  })
+    //}})
+//}  catch (e) {
+//        setLoading(false)
+//        pacient.setIsAuth(false)
+//        doc.setIsDoc(false)
+//        doc.setIsHp(false)
+//    }
 
     if (loading) {
         return <Spinner animation={"grow"}/>

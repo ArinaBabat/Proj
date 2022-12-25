@@ -4,12 +4,11 @@ const bcrypt = require('bcrypt')
 
 class UserController {
 async check(req, res, next) {
-  try {
+  if (req.user.tab){
       const tabl = req.user.tab
       return (tabl)
-    } catch (e) {
-          next(ApiError.badRequest(e.message))
-      }
+    }
+    return(false)
   }
 }
   module.exports = new UserController()

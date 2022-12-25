@@ -19,6 +19,7 @@ export const plogin = async (phone, password) => {
 }
 export const check = async () => {
   const {tab} = await $authHost.get('api/user/auth' );
+  localStorage.setItem('tab', tab.tabs)
   return(tab)
 }
 export const dcheck = async () => {

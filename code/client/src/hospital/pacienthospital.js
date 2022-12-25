@@ -9,8 +9,8 @@ export default class PacientHospital{
   setIsAuth(bool) {
     this._isAuth = bool
   }
-  setUser(pacient) {
-    this._pacient = pacient
+  setUser(user) {
+    this._pacient = user
   }
 
   get isAuth() {

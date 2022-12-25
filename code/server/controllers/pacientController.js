@@ -9,11 +9,8 @@ class PacientController {
 
   }
   async check(req, res, next) {
-    const {id} = req.query
-    if (!id) {
-      return next(ApiError.badRequest('Не задан id'))
+        const token = generateJwt(req.pacient.pacient_id)
+        return res.json({token})
     }
-    res.json(id)
-  }
 }
 module.exports = new PacientController()
