@@ -13,7 +13,7 @@ const ModalSpeciality = ({show, onHide}) => {
 //            onHide()
 //        })
 //    }
-const {tim} = useContext
+const {tim} = useContext(Context)
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
     href=""
