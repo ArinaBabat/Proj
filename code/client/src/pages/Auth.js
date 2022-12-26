@@ -7,6 +7,8 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import {PACIENT_REGISTRATION_ROUTE,PACIENT_LOGIN_ROUTE, DOCTOR_LOGIN_ROUTE, TIMETABLE_ROUTE} from "../utils/consts";
 import {plogin,dlogin, registration} from "../http/userAPI";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const Auth = observer( () => {
   const {doc} = useContext(Context)
@@ -15,6 +17,7 @@ const Auth = observer( () => {
   const [doctor_id, setId] = useState('')
   const [dpassword, dsetPassword] = useState('')
   const navigate = useNavigate()
+  const {tim} = useContext(Context)
 
   const {pacient} = useContext(Context);
   const isLogin = location.pathname === PACIENT_LOGIN_ROUTE;
@@ -143,6 +146,11 @@ const Auth = observer( () => {
                 onChange={(e) => psetPassword(e.target.value)}
                 type="password"
               />
+              <DropdownButton className="mt-3" id="dropdown-basic-button" title="Выберите лечащего врача">
+                {tim.doc.map( doc =>
+                    <Dropdown.Item key={doc.doctor_id}> {doc.first_name, doc.last_name} </Dropdown.Item>
+                )}
+              </DropdownButton>
 
               <div id="signInDiv"></div>
 

@@ -2,22 +2,9 @@ import {makeAutoObservable} from "mobx";
 
 export default class TimHospital {
     constructor() {
-        this._spec = [
-          {speciality_id:1, name:'sp1'},
-          {speciality_id:2, name:'sp2'}
-        ]
-        this._cab = [
-          {id:1, number:11,specialitySpecialityId:1},
-          {id:2, number:22,specialitySpecialityId:1},
-          {id:3, number:33,specialitySpecialityId:2},
-          {id:4, number:44,specialitySpecialityId:2}
-        ]
-        this._doc = [
-        {doctor_id:1, first_name:'sdfa', last_name:'ascs', specialitySpecialityId:1},
-        {doctor_id:2, first_name:'ssdvsd', last_name:'sdvf', specialitySpecialityId:2},
-        {doctor_id:3, first_name:'erh', last_name:'gfmkg', specialitySpecialityId:1},
-        {doctor_id:4, first_name:'sdvdf', last_name:'cfhy', specialitySpecialityId:2},
-        ]
+        this._spec = []
+        this._cab = []
+        this._doc = []
         this._tim = [
           {timetable_id: 1, day: 'q', start_of_admission: 1231, end_of_reception:13541, doctorDoctorId:1, cabinetCabinetId:1},
           {timetable_id: 2, day: 'w', start_of_admission: 1232, end_of_reception:13542, doctorDoctorId:2, cabinetCabinetId:2},

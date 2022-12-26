@@ -1,12 +1,19 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {Container, Form} from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import {NavLink, useLocation, useHistory} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import Table from 'react-bootstrap/Table';
+import {fetchTimetable, fetchCabinet, fetchSpeciality, fetchDoctor} from "../http/timAPI";
 
 const Timetable = observer(() => {
+  const {tim} = useContext(Context)
+  useEffect(() => {
+        fetchTimetable().then(data => tim.setTimetable(data))
+        fetchCabinet().then(data => tim.setCabinet(data))
+        fetchDoctor().then(data => tim.setDoctor(data))
+    }, [])
   return (
     <Container
       className="d-flex justify-content-center align-items-center"
@@ -16,13 +23,10 @@ const Timetable = observer(() => {
       <Table responsive="sm">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Timetable</th>
-            <th>Table heading</th>
-            <th>Table heading</th>
-            <th>Table heading</th>
-            <th>Table heading</th>
-            <th>Table heading</th>
+            {tim.tim.map( spec =>
+              <th key={tim.timetable_id}> {tim.day} </th>
+            )}
+
           </tr>
         </thead>
         <tbody>

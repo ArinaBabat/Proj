@@ -4,16 +4,15 @@ import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar";
 import {observer} from "mobx-react-lite";
 import {Context} from "./index";
-import {check,dcheck,pcheck} from "./http/userAPI";
+import {dcheck,pcheck} from "./http/userAPI";
 import {Spinner} from "react-bootstrap";
 
 const App = observer(() => {
   const {doc} = useContext(Context)
   const {pacient} = useContext(Context)
   const [loading, setLoading] = useState(true)
-  //try{
-  //check().then( tab => {
-    //if (tab){
+
+
       useEffect(() => {
         dcheck().then(data => {
           doc.setDoc(data)
@@ -33,13 +32,6 @@ const App = observer(() => {
           pacient.setIsAuth(true)
         }).finally(() => setLoading(false))
       }, [])
-    //}})
-//}  catch (e) {
-//        setLoading(false)
-//        pacient.setIsAuth(false)
-//        doc.setIsDoc(false)
-//        doc.setIsHp(false)
-//    }
 
     if (loading) {
         return <Spinner animation={"grow"}/>

@@ -3,15 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import {Form, Button} from "react-bootstrap";
 //import {createType} from "../../http/deviceAPI";
 
-const CreateType = ({show, onHide}) => {
-  //  const [value, setValue] = useState('')
-//
-//  const addType = () => {
-//        createType({name: value}).then(data => {
-//            setValue('')
-//            onHide()
-//        })
-//    }
+const CreateTim = ({show, onHide}) => {
+
 
     return (
         <Modal
@@ -21,7 +14,7 @@ const CreateType = ({show, onHide}) => {
         >
             <Modal.Header closeButton onClick={onHide}>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Добавить тип
+                    Изменить расписание
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -29,7 +22,7 @@ const CreateType = ({show, onHide}) => {
                     <Form.Control
                   //      value={value}
                   //      onChange={e => setValue(e.target.value)}
-                        placeholder={"Введите название типа"}
+                        placeholder={""}
                     />
                 </Form>
             </Modal.Body>
@@ -41,4 +34,4 @@ const CreateType = ({show, onHide}) => {
     );
 };
 
-export default CreateType;
+export default CreateTim;
