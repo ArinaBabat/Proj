@@ -9,11 +9,11 @@ import {fetchTimetable, fetchCabinet, fetchSpeciality, fetchDoctor} from "../htt
 
 const Timetable = observer(() => {
   const {tim} = useContext(Context)
-  useEffect(() => {
-        fetchTimetable().then(data => tim.setTimetable(data))
-        fetchCabinet().then(data => tim.setCabinet(data))
-        fetchDoctor().then(data => tim.setDoctor(data))
-    }, [])
+//  useEffect(() => {
+//        fetchTimetable().then(data => tim.setTimetable(data))
+//        fetchCabinet().then(data => tim.setCabinet(data))
+//        fetchDoctor().then(data => tim.setDoctor(data))
+//    }, [])
   return (
     <Container
       className="d-flex justify-content-center align-items-center"

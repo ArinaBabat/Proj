@@ -3,9 +3,12 @@ import Modal from "react-bootstrap/Modal";
 import {Form, Button} from "react-bootstrap";
 import Dropdown from 'react-bootstrap/Dropdown';
 import {Context} from "../../index";
+import {fetchSpeciality} from "../../http/timAPI";
 
 const ModalSpeciality = ({show, onHide}) => {
   const {tim} = useContext(Context)
+//  tim.setSpec(fetchSpeciality)
+  console.log(tim)
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
       href=""
