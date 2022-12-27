@@ -41,9 +41,16 @@ const Auth = observer( () => {
       if (isLogin) {
         data = await plogin(phone, ppassword);
       } else {
-        data = await registration(name, last_name, address, phone, ppassword);
+       const formData = new FormData()
+         formData.append('first_name', name)
+         formData.append('last_name', last_name)
+         formData.append('ppassword', ppassword)
+         formData.append('address', address)
+         formData.append('doctorDoctorId', timet.selectedDoc.doctor_id)
+         formData.append('phone', phone)
+        data = await registration(formData);
       }
-      pacient.setPacient(pacient);
+      pacient.setPacient(data);
       pacient.setIsAuth(true);
       navigate(TIMETABLE_ROUTE);
     } catch (e) {
@@ -65,7 +72,7 @@ const Auth = observer( () => {
     }
 
   }
-
+  console.log(timet.selectedDoc)
   return (
       <Container
         className="d-flex justify-content-center align-items-center"
@@ -154,11 +161,20 @@ const Auth = observer( () => {
                 onChange={(e) => psetPassword(e.target.value)}
                 type="password"
               />
-              <DropdownButton className="mt-3" id="dropdown-basic-button" title="Выберите лечащего врача">
-                {timet.doc.map( doc =>
-                    <Dropdown.Item key={doc.doctor_id}> {doc.last_name} </Dropdown.Item>
-                )}
-              </DropdownButton>
+              <Dropdown className="mt-2 mb-2">
+                        <Dropdown.Toggle>{timet.selectedDoc.last_name||"Выберите лечащего врача"}</Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {timet.doc.map( doc =>
+                                <Dropdown.Item
+                                    onClick={() => timet.setSelectedDoc(doc)}
+                                    key={doc.doctor_id}
+                                >
+                                  {doc.last_name}
+                                </Dropdown.Item>
+                            )}
+                        </Dropdown.Menu>
+                    </Dropdown>
+
 
               <div id="signInDiv"></div>
 

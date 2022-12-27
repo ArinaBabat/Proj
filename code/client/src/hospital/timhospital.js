@@ -6,6 +6,10 @@ export default class TimHospital {
         this._cab = []
         this._doc = []
         this._tim = []
+        this._selectedDoc = {}
+        this._page = 1
+        this._totalCount = 0
+        this._limit = 5
         makeAutoObservable(this)
     }
     setSpec(spec) {
@@ -20,9 +24,12 @@ export default class TimHospital {
 
     setTim(tim) {
         this._tim = tim
-      //  console.log(tim.spec)
-    }
 
+    }
+    setSelectedDoc(doc) {
+        this._selectedDoc = doc
+        console.log(doc)
+    }
 
     get spec() {
         return this._spec
@@ -35,6 +42,9 @@ export default class TimHospital {
     }
     get tim() {
         return this._tim
+    }
+    get selectedDoc() {
+        return this._selectedDoc
     }
 
 }
