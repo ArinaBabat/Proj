@@ -5,12 +5,12 @@ import {TIMETABLE_ROUTE} from "../utils/consts";
 import {Context} from "../index";
 const AppRouter = () => {
   const {pacient} = useContext(Context)
-  const {doc} = useContext(Context)
+  const {doct} = useContext(Context)
   console.log(pacient);
-  console.log(doc);
+  console.log(doct);
   return (
     <Routes>
-    {doc.isDoc && authRoutes.map(({path, Component}) =>
+    {doct.isDoc && authRoutes.map(({path, Component}) =>
       <Route key={path} path={path} element={<Component/>} exact/>
     )}
       {pacient.isAuth && authRoutes.map(({path, Component}) =>

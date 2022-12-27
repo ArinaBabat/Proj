@@ -8,12 +8,16 @@ import Table from 'react-bootstrap/Table';
 import {fetchTimetable, fetchCabinet, fetchSpeciality, fetchDoctor} from "../http/timAPI";
 
 const Timetable = observer(() => {
-  const {tim} = useContext(Context)
-//  useEffect(() => {
-//        fetchTimetable().then(data => tim.setTimetable(data))
-//        fetchCabinet().then(data => tim.setCabinet(data))
-//        fetchDoctor().then(data => tim.setDoctor(data))
-//    }, [])
+  const {timet} = useContext(Context)
+  useEffect(() => {
+        fetchTimetable(null, null, null, 1, 2).then(data => {
+          timet.setTim(data.rows)
+        })
+        fetchCabinet().then(data => timet.setCab(data))
+        fetchDoctor().then(data => timet.setDoc(data))
+        fetchSpeciality().then(data => timet.setSpec(data))
+    }, [])
+    console.log('timet.tim: ',timet.tim)
   return (
     <Container
       className="d-flex justify-content-center align-items-center"
@@ -23,9 +27,10 @@ const Timetable = observer(() => {
       <Table responsive="sm">
         <thead>
           <tr>
-            {tim.tim.map( spec =>
+            {timet.tim.map (tim =>
               <th key={tim.timetable_id}> {tim.day} </th>
             )}
+
 
           </tr>
         </thead>

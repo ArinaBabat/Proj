@@ -7,7 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 const CreateType = ({show, onHide}) => {
   const {doctor} = useContext(Context)
-  const {tim} = useContext(Context)
+  const {timet} = useContext(Context)
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
       href=""
@@ -98,8 +98,8 @@ const CreateType = ({show, onHide}) => {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu as={CustomMenu}>
-                    {tim.spec.map( spec =>
-                      <Dropdown.Item key={tim.cab.specialitySpecialityId}> {spec.name} </Dropdown.Item>
+                    {timet.spec.map( spec =>
+                      <Dropdown.Item key={timet.cab.specialitySpecialityId}> {spec.name} </Dropdown.Item>
                     )}
                   </Dropdown.Menu>
                 </Dropdown>

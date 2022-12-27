@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState,useEffect} from 'react';
 import {Container, Form, Card} from 'react-bootstrap'
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -9,6 +9,7 @@ import {PACIENT_REGISTRATION_ROUTE,PACIENT_LOGIN_ROUTE, DOCTOR_LOGIN_ROUTE, TIME
 import {plogin,dlogin, registration} from "../http/userAPI";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import {fetchTimetable, fetchCabinet, fetchSpeciality, fetchDoctor} from "../http/timAPI";
 
 const Auth = observer( () => {
   const {doc} = useContext(Context)
@@ -17,7 +18,7 @@ const Auth = observer( () => {
   const [doctor_id, setId] = useState('')
   const [dpassword, dsetPassword] = useState('')
   const navigate = useNavigate()
-  const {tim} = useContext(Context)
+  const {timet} = useContext(Context)
 
   const {pacient} = useContext(Context);
   const isLogin = location.pathname === PACIENT_LOGIN_ROUTE;
@@ -26,7 +27,14 @@ const Auth = observer( () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [ppassword, psetPassword] = useState('')
-
+  useEffect(() => {
+        fetchDoctor().then(data => {
+          timet.setDoc(data.rows)
+          console.log('data: ',data)
+        })
+        console.log('timet.doc: ',timet.doc)
+    }, [])
+    console.log('timet.doc: ',timet.doc)
   const click = async () => {
     try {
       let data;
@@ -147,8 +155,8 @@ const Auth = observer( () => {
                 type="password"
               />
               <DropdownButton className="mt-3" id="dropdown-basic-button" title="Выберите лечащего врача">
-                {tim.doc.map( doc =>
-                    <Dropdown.Item key={doc.doctor_id}> {doc.first_name, doc.last_name} </Dropdown.Item>
+                {timet.doc.map( doc =>
+                    <Dropdown.Item key={doc.doctor_id}> {doc.last_name} </Dropdown.Item>
                 )}
               </DropdownButton>
 

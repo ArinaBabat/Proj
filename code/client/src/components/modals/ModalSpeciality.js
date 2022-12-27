@@ -3,12 +3,12 @@ import Modal from "react-bootstrap/Modal";
 import {Form, Button} from "react-bootstrap";
 import Dropdown from 'react-bootstrap/Dropdown';
 import {Context} from "../../index";
-import {fetchSpeciality} from "../../http/timAPI";
+//import {fetchSpeciality} from "../../http/timAPI";
 
 const ModalSpeciality = ({show, onHide}) => {
-  const {tim} = useContext(Context)
+  const {timet} = useContext(Context)
 //  tim.setSpec(fetchSpeciality)
-  console.log(tim)
+  console.log(timet.spec)
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
       href=""
@@ -68,7 +68,7 @@ const ModalSpeciality = ({show, onHide}) => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as={CustomMenu}>
-                  {tim.spec.map( spec =>
+                  {timet.spec.map( spec =>
                     <Dropdown.Item key={spec.speciality_id}> {spec.name} </Dropdown.Item>
                   )}
                 </Dropdown.Menu>

@@ -12,8 +12,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Context.Provider value={{
     pacient: new PacientHospital(),
-    doc: new DocHospital(),
-    tim: new TimHospital(),
+    doct: new DocHospital(),
+    timet: new TimHospital(),
     }}>
       <App />
     </Context.Provider>,

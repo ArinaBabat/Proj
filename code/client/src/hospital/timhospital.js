@@ -20,6 +20,7 @@ export default class TimHospital {
 
     setTim(tim) {
         this._tim = tim
+      //  console.log(tim.spec)
     }
 
 

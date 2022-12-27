@@ -26,11 +26,11 @@ export const fetchDoctor = async () => {
 }
 
 export const createTimetabte = async (timetable) => {
-    const {data} = await $authHost.post('api/timetable', timetable)
+    const {data} = await $authHost.post('api/timetable/create', timetable)
     return data
 }
 
-export const fetchTimetable = async (cabinetCabinetId, doctorDoctorId, page, limit= 5) => {
+export const fetchTimetable = async (day, cabinetCabinetId, doctorDoctorId, page, limit= 5) => {
     const {data} = await $host.get('api/timetable', {params: {
             cabinetCabinetId, doctorDoctorId, page, limit
         }})

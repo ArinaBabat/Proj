@@ -12,13 +12,13 @@ import {$authHost, $host} from "../index";
 
 const NavBar = observer( () => {
   const {pacient} = useContext(Context)
-  const {doc} = useContext(Context)
+  const {doct} = useContext(Context)
   const navigate = useNavigate()
 
   const logOutD = () => {
-          doc.setDoc({})
-          doc.setIsDoc(false)
-          doc.setIsHp(false)
+          doct.setDoc({})
+          doct.setIsDoc(false)
+          doct.setIsHp(false)
           localStorage.setItem('token', '')
           navigate(TIMETABLE_ROUTE)
       }
@@ -33,7 +33,7 @@ const NavBar = observer( () => {
     <Navbar bg="primary" variant="dark">
       <Container>
         <Button size="lg"  onClick={() => navigate(TIMETABLE_ROUTE)}>Синяя птица</Button>
-        {doc.isHp ?
+        {doct.isHp ?
           <Nav className="ml-auto">
             <Button onClick={() => navigate(HEAD_PHYSICIAN_ROUTE)}>Управление</Button>
             <Button onClick={() => navigate(DOCTOR_TIMETABLE_ROUTE)}>Моё расписание</Button>
@@ -41,7 +41,7 @@ const NavBar = observer( () => {
             <Button onClick={() => logOutD()}>Выход</Button>
             </Nav>
             :
-            doc.isDoc ?
+            doct.isDoc ?
               <Nav className="ml-auto">
             <Button onClick={() => navigate(DOCTOR_TIMETABLE_ROUTE)}>Моё расписание</Button>
             <Button onClick={() => navigate(DOCTOR_PACIENTS_ROUTE)}>Мои пациенты</Button>

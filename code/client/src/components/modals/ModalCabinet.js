@@ -5,7 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import {Context} from "../../index";
 
 const ModalCabinet = ({show, onHide}) => {
-  const {tim} = useContext(Context)
+  const {timet} = useContext(Context)
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
       href=""
@@ -65,7 +65,7 @@ const ModalCabinet = ({show, onHide}) => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as={CustomMenu}>
-                  {tim.cab.map( cab =>
+                  {timet.cab.map( cab =>
                     <Dropdown.Item key={cab.cabinet_id}> {cab.number} </Dropdown.Item>
                   )}
                 </Dropdown.Menu>
@@ -77,8 +77,8 @@ const ModalCabinet = ({show, onHide}) => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as={CustomMenu}>
-                  {tim.spec.map( spec =>
-                    <Dropdown.Item key={tim.spec.specialitySpecialityId}> {spec.name} </Dropdown.Item>
+                  {timet.spec.map( spec =>
+                    <Dropdown.Item key={timet.spec.specialitySpecialityId}> {spec.name} </Dropdown.Item>
                   )}
                 </Dropdown.Menu>
               </Dropdown>
