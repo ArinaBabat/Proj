@@ -1,8 +1,8 @@
 import {makeAutoObservable} from "mobx";
 export default class DocHospital{
   constructor() {
-    this._isDoc = true
-    this._isHp = true
+    this._isDoc = false
+    this._isHp = false
     this._doc = {}
     makeAutoObservable(this)
   }

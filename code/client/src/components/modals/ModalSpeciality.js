@@ -7,7 +7,7 @@ import {Context} from "../../index";
 
 const ModalSpeciality = ({show, onHide}) => {
   const {timet} = useContext(Context)
-//  tim.setSpec(fetchSpeciality)
+
   console.log(timet.spec)
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
