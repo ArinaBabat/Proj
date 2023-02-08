@@ -6,8 +6,6 @@ import {Context} from "../index";
 const AppRouter = () => {
   const {pacient} = useContext(Context)
   const {doct} = useContext(Context)
-  console.log(pacient);
-  console.log(doct);
   return (
     <Routes>
     {doct.isDoc && authRoutes.map(({path, Component}) =>

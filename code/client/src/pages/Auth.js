@@ -12,7 +12,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import {fetchTimetable, fetchCabinet, fetchSpeciality, fetchDoctor} from "../http/timAPI";
 
 const Auth = observer( () => {
-  const {doc} = useContext(Context)
+  const {doct} = useContext(Context)
   const location = useLocation()
   const isDoct = location.pathname === DOCTOR_LOGIN_ROUTE
   const [doctor_id, setId] = useState('')
@@ -30,11 +30,11 @@ const Auth = observer( () => {
   useEffect(() => {
         fetchDoctor().then(data => {
           timet.setDoc(data.rows)
-          console.log('data: ',data)
+          //console.log('data: ',data)
         })
-        console.log('timet.doc: ',timet.doc)
+        //console.log('timet.doc: ',timet.doc)
     }, [])
-    console.log('timet.doc: ',timet.doc)
+    //console.log('timet.doc: ',timet.doc)
   const click = async () => {
     try {
       let data;
@@ -63,16 +63,15 @@ const Auth = observer( () => {
       let doctor;
       doctor = await dlogin(doctor_id, dpassword)
       console.log(doctor)
-      doc.setDoc(doctor)
-      doc.setIsDoc(true)
-      if (doctor.role === "HEAD_PHYSICIAN"){doc.setIsHp(true)}
+      doct.setDoc(doctor);
+      doct.setIsDoc(true)
+      if (doctor.role === "HEAD_PHYSICIAN"){doct.setIsHp(true)}
       navigate(TIMETABLE_ROUTE)
     }catch (e) {
-      alert(e.response.data.message)
+      alert(e.response.data.message);
     }
-
-  }
-  console.log(timet.selectedDoc)
+  };
+  //console.log(timet.selectedDoc)
   return (
       <Container
         className="d-flex justify-content-center align-items-center"

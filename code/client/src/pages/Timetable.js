@@ -17,7 +17,7 @@ const Timetable = observer(() => {
         fetchDoctor().then(data => timet.setDoc(data))
         fetchSpeciality().then(data => timet.setSpec(data))
     }, [])
-    console.log('timet.tim: ',timet.tim)
+  //  console.log('timet.tim: ',timet.tim)
   return (
     <Container
       className="d-flex justify-content-center align-items-center"

@@ -8,30 +8,30 @@ import {dcheck,pcheck} from "./http/userAPI";
 import {Spinner} from "react-bootstrap";
 
 const App = observer(() => {
-  const {doc} = useContext(Context)
+  const {doct} = useContext(Context)
   const {pacient} = useContext(Context)
   const [loading, setLoading] = useState(true)
-
-
       useEffect(() => {
         dcheck().then(data => {
-          doc.setDoc(data)
+          doct.setDoc(data)
           if (data.role === "DOCTOR"){
-            doc.setIsDoc(true)
-          }
-          if (data.role === "HEAD_PHYSICIAN"){
-            doc.setIsDoc(true)
-            doc.setIsHp(true)
+            doct.setIsDoc(true)
+          } else if (data.role === "HEAD_PHYSICIAN"){
+              doct.setIsDoc(true)
+              doct.setIsHp(true)
+            } else{
+              pcheck().then(data=> {
+                pacient.setUser(data)
+                pacient.setIsAuth(true)
+                console.log(":(")
+              })
           }
         }).finally(() => setLoading(false))
       }, [])
     //}else{
-      useEffect(() => {
-        pcheck().then(data=> {
-          pacient.setUser(data)
-          pacient.setIsAuth(true)
-        }).finally(() => setLoading(false))
-      }, [])
+    //  useEffect(() => {
+    //  }).finally(() => setLoading(false))
+    //  }, [])
 
     if (loading) {
         return <Spinner animation={"grow"}/>

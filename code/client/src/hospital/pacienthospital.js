@@ -8,6 +8,7 @@ export default class PacientHospital{
 
   setIsAuth(bool) {
     this._isAuth = bool
+    console.log('isAuth ',bool)
   }
   setUser(user) {
     this._pacient = user

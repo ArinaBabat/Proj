@@ -8,9 +8,11 @@ export default class DocHospital{
   }
   setIsDoc(bool) {
     this._isDoc = bool
+    console.log('isDoc ',bool)
   }
   setIsHp(bool) {
     this._isHp = bool
+    console.log('isHp ',bool)
   }
   setDoc(doc) {
     this._doc = doc

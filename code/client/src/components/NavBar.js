@@ -23,7 +23,7 @@ const NavBar = observer( () => {
           navigate(TIMETABLE_ROUTE)
       }
       const logOutP = () => {
-              pacient.setPacient({})
+              pacient.setUser({})
               pacient.setIsAuth(false)
               localStorage.setItem('token', '')
               navigate(TIMETABLE_ROUTE)

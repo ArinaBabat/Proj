@@ -17,11 +17,11 @@ export const plogin = async (phone, password) => {
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token)
 }
-export const check = async () => {
-  const {tab} = await $authHost.get('api/user/auth' );
-  localStorage.setItem('tab', tab.tabs)
-  return(tab)
-}
+//export const check = async () => {
+//  const {tab} = await $authHost.get('api/user/auth' );
+//  localStorage.setItem('tab', tab.tabs)
+//  return(tab)
+//}
 export const dcheck = async () => {
     const {data} = await $authHost.get('api/doctor/auth' )
       localStorage.setItem('token', data.token)
