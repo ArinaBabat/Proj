@@ -2,6 +2,7 @@ const {Pacients, Doctors} = require('../models/models')
 const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const passport = require('passport');
 
 const generateJwt = (phone, password) => {
     return jwt.sign(
@@ -12,7 +13,21 @@ const generateJwt = (phone, password) => {
 }
 
 class PacientController {
-  async registration(req, res) {
+  async redirect(req, res) {
+    return res.redirect('http://localhost:3000/auth-redirect')
+  }
+  async get(req, res) {
+    return res.json({ user: req.user })
+  }
+  async check(req, res, next) {
+    try{
+        const token = generateJwt(req.pacient.phone)
+        return res.json({token})
+      }  catch (e) {
+          next(ApiError.badRequest(e.message))
+      }
+  }
+  /*async registration(req, res) {
     try {
       const {first_name, last_name, password, address, doctorDoctorId,phone} = req.body
 
@@ -44,14 +59,6 @@ class PacientController {
     }
     const token = generateJwt(pacient.phone, pacient.password)
     return res.json({token})
-  }
-  async check(req, res, next) {
-    try{
-        const token = generateJwt(req.pacient.phone)
-        return res.json({token})
-      }  catch (e) {
-              next(ApiError.badRequest(e.message))
-          }
-    }
+  }*/
 }
 module.exports = new PacientController()

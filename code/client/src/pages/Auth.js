@@ -35,6 +35,10 @@ const Auth = observer( () => {
     }, [])
 
   const click = async () => {
+    window.location.replace(
+      "http://localhost:5000/api/pacient/login/"
+    );
+    /*
     try {
       let data;
 //      if (isLogin) {
@@ -54,7 +58,7 @@ const Auth = observer( () => {
       navigate(TIMETABLE_ROUTE);
     } catch (e) {
       alert(e.response.data.message);
-    }
+    }*/
   };
 
   const dsignIn = async () =>{

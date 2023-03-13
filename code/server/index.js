@@ -3,13 +3,28 @@ const express = require('express')
 const sequelize = require('./db.js')
 const models = require('./models/models.js')
 const cors = require('cors')
+const passport = require('passport');
+const cookieSession = require('cookie-session');
+const keys = require('./config/keys.js');
 const router = require('./routes/index.js')
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
+const passportSetup = require('./config/passport-setup.js');
+
 const PORT = process.env.PORT || 5000
 const app = express()
 
-app.use(cors())
 app.use(express.json())
+
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [keys.session.cookieKey]
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(cors({ origin: "http://localhost:3000", credentials: true }))
+
 app.use('/api', router)
 
 app.use(errorHandler)
