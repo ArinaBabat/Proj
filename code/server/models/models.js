@@ -1,12 +1,11 @@
 const sequelize = require('../db')
 const {DataTypes} = require('sequelize')
 const Pacients = sequelize.define('pacient', {
-    pacient_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    pacient_id: {type: DataTypes.INTEGER, primaryKey: true, unique: true, allowNull: false},
     first_name: {type: DataTypes.STRING},
     last_name: {type: DataTypes.STRING},
     addres_id:{type: DataTypes.INTEGER},
-    mail: {type: DataTypes.STRING, unique: true, allowNull: false},
-    password: {type: DataTypes.STRING},
+    mail: {type: DataTypes.STRING, unique: true},
 })
 const Doctors = sequelize.define('doctor', {
     doctor_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
