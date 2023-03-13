@@ -7,7 +7,6 @@ const Pacients = sequelize.define('pacient', {
     addres_id:{type: DataTypes.INTEGER},
     mail: {type: DataTypes.STRING, unique: true, allowNull: false},
     password: {type: DataTypes.STRING},
-    role: {type: DataTypes.STRING, defaultValue: "PACIENT"},
 })
 const Doctors = sequelize.define('doctor', {
     doctor_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -38,10 +37,8 @@ const Specialties = sequelize.define('speciality', {
     speciality_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
 })
-const Users = sequelize.define('user', {
-    login: {type: DataTypes.STRING, allowNull: false},
-    tab: {type: DataTypes.BOOLEAN},
-})
+
+
 Doctors.hasOne(Pacients)
 Pacients.belongsTo(Doctors)
 
@@ -69,6 +66,7 @@ Cabinets.belongsTo(Specialties)
 Specialties.hasMany(Doctors)
 Doctors.belongsTo(Specialties)
 
+
 module.exports = {
     Pacients,
     Doctors,
@@ -76,6 +74,5 @@ module.exports = {
     Records,
     Prescriptions,
     Cabinets,
-    Specialties,
-    Users
+    Specialties
 }
