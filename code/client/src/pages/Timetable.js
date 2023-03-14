@@ -24,46 +24,7 @@ const Timetable = observer(() => {
       style={{height: window.innerHeight*1.25}}
       >
       <div>
-      <Table responsive="sm">
-        <thead>
-          <tr>
-            {timet.tim.map (tim =>
-              <th key={tim.timetable_id}> {tim.day} </th>
-            )}
-
-
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-          </tr>
-        </tbody>
-      </Table>
+      
       <Table responsive="md">
         <thead>
           <tr>

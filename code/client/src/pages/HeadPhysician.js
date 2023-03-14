@@ -14,11 +14,12 @@ const HeadPhysician = () => {
   const [TimetableVisible, setTimetableVisible] = useState(false)
   const {timet} = useContext(Context)
   useEffect(() => {
-        fetchTimetable().then(data => timet.setTimetable(data))
-        fetchCabinet().then(data => timet.setCabinet(data))
-        fetchDoctor().then(data => timet.setDoctor(data))
+        fetchTimetable().then(data => timet.setTim(data))
+        fetchCabinet().then(data => timet.setCab(data))
+        fetchDoctor().then(data => timet.setDoc(data))
         fetchSpeciality().then(data => timet.setSpec(data))
     }, [])
+    
     return (
         <Container className="d-flex flex-column">
             <Button
