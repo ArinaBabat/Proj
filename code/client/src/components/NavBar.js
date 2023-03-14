@@ -26,7 +26,9 @@ const NavBar = observer( () => {
               pacient.setUser({})
               pacient.setIsAuth(false)
               localStorage.setItem('token', '')
-              navigate(TIMETABLE_ROUTE)
+              window.location.replace(
+                "http://localhost:5000/api/pacient/logout/"
+              );
           }
 
   return (
