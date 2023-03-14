@@ -16,6 +16,5 @@ root.render(
     timet: new TimHospital(),
     }}>
       <App />
-    </Context.Provider>,
-  document.getElementById('root')
+    </Context.Provider>
 );

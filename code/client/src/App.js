@@ -4,7 +4,7 @@ import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar";
 import {observer} from "mobx-react-lite";
 import {Context} from "./index";
-import {dcheck,pcheck} from "./http/userAPI";
+import {dcheck} from "./http/userAPI";
 import {Spinner} from "react-bootstrap";
 
 const App = observer(() => {
@@ -19,19 +19,9 @@ const App = observer(() => {
           } else if (data.role === "HEAD_PHYSICIAN"){
               doct.setIsDoc(true)
               doct.setIsHp(true)
-            } else{
-              pcheck().then(data=> {
-                pacient.setUser(data)
-                pacient.setIsAuth(true)
-                console.log(":(")
-              })
-          }
+            }
         }).finally(() => setLoading(false))
       }, [])
-    //}else{
-    //  useEffect(() => {
-    //  }).finally(() => setLoading(false))
-    //  }, [])
 
     if (loading) {
         return <Spinner animation={"grow"}/>
