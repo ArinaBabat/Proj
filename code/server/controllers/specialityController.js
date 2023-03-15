@@ -1,7 +1,7 @@
 const {Specialties} = require('../models/models')
 const ApiError = require('../error/ApiError');
 class SpecialityController {
-  async create(req, res, next) {
+  async create(req, res, next) { // deprecated
     try {
       const {name} = req.body
       const candidate = await Specialties.findOne({where: {name}})
@@ -18,7 +18,7 @@ class SpecialityController {
     const speciality = await Specialties.findAll()
     return res.json(speciality)
   }
-  async delet(req, res) {
+  async delet(req, res) { // deprecated
 
   }
 }

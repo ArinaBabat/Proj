@@ -70,8 +70,11 @@ class DoctorController {
   }
   async getOne(req, res) {
     const {id} = req.params
-        const doctor = await Doctors.findOne({where: {id}})
+        const doctor = await Doctors.findOne({where: { doctor_id: id }})
       return res.json(doctor)
+  }
+  async getPatients(req, res) { // TODO
+
   }
 }
 module.exports = new DoctorController()

@@ -1,16 +1,5 @@
-const {Pacients, Doctors} = require('../models/models')
+const { Pacients, Doctors } = require('../models/models')
 const ApiError = require('../error/ApiError');
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const passport = require('passport');
-
-const generateJwt = (phone, password) => {
-    return jwt.sign(
-        {phone, password},
-        process.env.SECRET_KEY,
-        {expiresIn: '24h'}
-    )
-}
 
 class PacientController {
   async redirect(req, res) {
@@ -19,46 +8,62 @@ class PacientController {
   async get(req, res) {
     return res.json({ user: req.user })
   }
-  async check(req, res, next) {
-    try{
-        const token = generateJwt(req.pacient.phone)
-        return res.json({token})
-      }  catch (e) {
-          next(ApiError.badRequest(e.message))
-      }
-  }
-  /*async registration(req, res) {
+  async logout(req, res) {
+    if (req.user) {
+      req.logOut();
+      req.session = null;
+    }
+    res.status(200).json({ success: true, message: "Signed out successfully" });
+  };
+  async setDoctor(req, res, next) {
     try {
-      const {first_name, last_name, password, address, doctorDoctorId,phone} = req.body
-
-      if (!password || !doctorDoctorId|| !first_name || !last_name ||!address||!phone) {
-            return next(ApiError.badRequest('Необходимо заполнить все поля'))
-        }
-        const candidate = await Pacients.findOne({where: {phone}})
-          if (candidate) {
-              return next(ApiError.badRequest('Пользователь с таким номером уже существует'))
-          }
-      const hashPassword = await bcrypt.hash(password, 5)
-      const pacient = await Pacients.create({first_name, last_name, password: hashPassword, address, doctorDoctorId,phone})
-      const token = generateJwt(doctor.doctor_id, doctor.role)
-      return res.json({token})
-    } catch (e) {
-          next(ApiError.badRequest(e.message))
+      if (!req.user) {
+        return next(ApiError.internal('Пользователь не войден'));
       }
+      const { doctor_id } = req.body;
+      const doctor = await Doctors.findOne({ where: { doctor_id } });
+      if (!doctor) {
+        return next(ApiError.internal('Такого врача нет'));
+      }
+      await Pacients.update({ doctorDoctor_id: doctor_id }, { where: { pacient_id: req.user.pacient_id } });
+      return res.json({ success: true });
+    } catch (e) {
+      console.log(e);
+      return next(ApiError.internal('Ошибка при редактировании врача'));
+    }
   }
-  async login(req, res) {
-    const {phone, password} = req.body
-    if (!password || !phone) {
-        return next(ApiError.badRequest('Введите свой номер и пароль'))
+  async setAddress(req, res, next) {
+    try {
+      if (!req.user) {
+        return next(ApiError.internal('Пользователь не войден'));
+      }
+      const { address } = req.body;
+      if (!address) {
+        return next(ApiError.internal('Адрес пустой'));
+      }
+      await Pacients.update({ address: address }, { where: { pacient_id: req.user.pacient_id } });
+      return res.json({ success: true });
+    } catch (e) {
+      console.log(e);
+      return next(ApiError.internal('Ошибка при редактировании адреса'));
     }
-    const pacient = await Pacients.findOne({where: {phone}})
-
-    let comparePassword = bcrypt.compareSync(password, pacient.password)
-    if (!pacient || !comparePassword) {
-      return next(ApiError.internal('Неверный номер или пароль'))
+  }
+  async setMail(req, res, next) {
+    try {
+      if (!req.user) {
+        return next(ApiError.internal('Пользователь не войден'));
+      }
+      const { mail } = req.body;
+      if (!mail) {
+        return next(ApiError.internal('Почта пустая'));
+      }
+      await Pacients.update({ mail: mail }, { where: { pacient_id: req.user.pacient_id } });
+      return res.json({ success: true });
+    } catch (e) {
+      console.log(e);
+      return next(ApiError.internal('Ошибка при редактировании почты'));
     }
-    const token = generateJwt(pacient.phone, pacient.password)
-    return res.json({token})
-  }*/
+  }
 }
+
 module.exports = new PacientController()

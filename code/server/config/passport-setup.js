@@ -4,13 +4,11 @@ const keys = require('./keys.js');
 const { Pacients } = require('../models/models')
 
 passport.serializeUser((pacient, done) => {
-  console.log("eh2");
   done(null, pacient.pacient_id);
 });
 
 // puts pacient object into req.user
 passport.deserializeUser(async (pacient_id, done) => {
-  console.log("eh1");
   try {
     let pacient = await Pacients.findOne({ where: { pacient_id } });
     if (pacient) {
@@ -32,7 +30,6 @@ passport.use(
       profileFields: ["id", "first_name", "last_name"],
       lang: "ru"
     }, async (req, accessToken, refreshToken, params, profile, done) => {
-      console.log("eh");
       let pacient = await Pacients.findOne({ where: { pacient_id: profile._json.id } });
       if (!pacient) {
         pacient = await Pacients.create({ 

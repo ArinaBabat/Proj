@@ -2,7 +2,8 @@ const {Cabinets} = require('../models/models')
 const ApiError = require('../error/ApiError');
 
 class CabinetController {
-  async create(req, res, next) {
+  
+  async create(req, res, next) { // deprecated
     try {
       const {number, specialitySpecialityId} = req.body
       const cabinet = await Cabinets.create({number, specialitySpecialityId})
@@ -25,7 +26,7 @@ class CabinetController {
     }
     return res.json(cabinet)
   }
-  async delet(req, res) {
+  async delet(req, res) { // deprecated
 
   }
 }

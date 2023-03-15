@@ -8,4 +8,5 @@ router.post('/login',doctorController.login)
 router.get('/auth',dauthMiddleware, doctorController.check)
 router.get('/',doctorController.getAll)
 router.get('/:id',doctorController.getOne)
+router.post('/patients', doctorController.getPatients)
 module.exports = router

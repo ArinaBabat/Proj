@@ -1,7 +1,7 @@
 const {Records, Timetable} = require('../models/models')
 const ApiError = require('../error/ApiError');
 class RecordController {
-  async create(req, res, next) {
+  async create(req, res, next) { // TODO
       try {
         const {time, pacientPacientId, doctorDoctorId, timetableTimetableId} = req.body
         if (req.Timetable.timetable_id == timetableTimetableId && req.Timetable.doctorDoctorId == doctorDoctorId && time >= req.Timetable.start_of_admission && time <= req.Timetable.end_of_reception - 15){
@@ -32,9 +32,11 @@ class RecordController {
     return res.json(record)
   }
   async getOne(req, res) {
-
+    const { id } = req.params
+    const record = await Prescriptions.findOne({ where: { record_id: id } })
+    return res.json(record)
   }
-  async delet(req, res) {
+  async delet(req, res) { // TODO
 
   }
 }

@@ -47,7 +47,7 @@ class TimetableController {
         }
     return res.json(timetable)
   }
-  async delet(req, res) {
+  async delet(req, res) { // TODO
 
   }
 }

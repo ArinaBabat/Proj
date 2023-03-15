@@ -4,4 +4,5 @@ const timetableController = require('../controllers/timetableController.js')
 const checkRole = require('../middleware/checkRoleMiddleware')
 router.post('/create', checkRole('HEAD_PHYSICIAN'),  timetableController.create)
 router.get('/', timetableController.getAll)
+router.delete('/', timetableController.delet)
 module.exports = router

@@ -19,7 +19,9 @@ class PrescriptionController {
     return res.json(prescription)
   }
   async getOne(req, res) {
-
+    const { id } = req.params
+    const prescription = await Prescriptions.findOne({ where: { prescription_id: id } })
+    return res.json(prescription)
   }
 }
 module.exports = new PrescriptionController()
