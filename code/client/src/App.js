@@ -12,7 +12,7 @@ const App = observer(() => {
   const {pacient} = useContext(Context)
   const [loading, setLoading] = useState(true)
       useEffect(() => {
-        dcheck().then(data => {
+        dcheck().then(data => {        //здесь
           doct.setDoc(data)
           if (data.role === "DOCTOR"){
             doct.setIsDoc(true)

@@ -9,9 +9,9 @@ const Pacients = () => {
   const navigate = useNavigate()
   const {timet} = useContext(Context)
   useEffect(() => {
-        fetchTimetable().then(data => timet.setTimetable(data))
-        fetchCabinet().then(data => timet.setCabinet(data))
-        fetchDoctor().then(data => timet.setDoctor(data))
+//        fetchTimetable().then(data => timet.setTimetable(data))
+//        fetchCabinet().then(data => timet.setCabinet(data))
+//        fetchDoctor().then(data => timet.setDoctor(data))
         fetchSpeciality().then(data => timet.setSpec(data))
     }, [])
   return (

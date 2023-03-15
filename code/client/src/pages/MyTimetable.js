@@ -2,7 +2,7 @@ import React from 'react';
 const MyTimetable = () => {
   return (
     <div>
-      MyTimetable
+      MyTimetabl
     </div>
   );
 };

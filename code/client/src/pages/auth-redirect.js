@@ -1,21 +1,22 @@
 import {plogin} from "../http/userAPI";
 import React, {useContext, useEffect} from 'react';
 import {observer} from "mobx-react-lite";
-//import {Context} from "../index";
 import {TIMETABLE_ROUTE} from "../utils/consts";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 
-
 const LoginSuccess = observer(() => {
-//  const {pacient} = useContext(Context);
-//  const context = useContext();
+  console.log("1")
   const navigate = useNavigate();
-
+console.log("2")
   useEffect(() => {
+    console.log("3")
     setTimeout(() => {
-    const dsignIn = async () =>{
+      console.log("4")
+    const psignIn = async () =>{
+      console.log("5")
       try {
         let pacient;
+        console.log("pacient")
         pacient = await plogin()
         console.log(pacient)
         pacient.setUser(pacient);
@@ -24,7 +25,9 @@ const LoginSuccess = observer(() => {
       }catch (e) {
         alert(e.response.data.message);
       }
-    };}, 1000)
+    };
+    console.log("?")
+  }, 1000)
   }, [])
 
   return (

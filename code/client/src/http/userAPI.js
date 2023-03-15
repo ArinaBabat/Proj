@@ -13,15 +13,14 @@ export const dlogin = async (doctor_id, password) => {
   return jwt_decode(data.token)
 }
 export const plogin = async () => {
-  const {user} = await $authHost.get('api/pacient/get')
+  const {user} = await $host.get('api/pacient/get')
   console.log(user)
-    //localStorage.setItem('token', data.token)
     return (user)
 }
 
 
 export const dcheck = async () => {
-    const {data} = await $authHost.get('api/doctor/auth' )
+    const {data} = await $authHost.get('api/doctor/auth' )        //здесь
       localStorage.setItem('token', data.token)
       return (jwt_decode(data.token))
 }

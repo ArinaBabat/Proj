@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {Context} from "../index";
-import {TIMETABLE_ROUTE,DOCTOR_PACIENTS_ROUTE,HEAD_PHYSICIAN_ROUTE,PACIENT_LOGIN_ROUTE,DOCTOR_LOGIN_ROUTE,DOCTOR_TIMETABLE_ROUTE,PRESCRIPTIONS_ROUTE,NEW_RECORD_ROUTE,PACIENT_RECORDS_ROUTE} from "../utils/consts";
+import {TIMETABLE_ROUTE,DOCTOR_PACIENTS_ROUTE,HEAD_PHYSICIAN_ROUTE,PACIENT_LOGIN_ROUTE,DOCTOR_LOGIN_ROUTE,DOCTOR_TIMETABLE_ROUTE,PRESCRIPTIONS_ROUTE,NEW_RECORD_ROUTE,PACIENT_RECORDS_ROUTE,PACIENT_ROUTE} from "../utils/consts";
 import {observer} from "mobx-react-lite";
 import {NavLink} from "react-router-dom";
 import {Button} from "react-bootstrap";
@@ -55,6 +55,7 @@ const NavBar = observer( () => {
               <Button onClick={() => navigate(PRESCRIPTIONS_ROUTE)}>Мои назначения</Button>
               <Button onClick={() => navigate(NEW_RECORD_ROUTE)}>Запись к врачу</Button>
               <Button onClick={() => navigate(PACIENT_RECORDS_ROUTE)}>Предстоящие записи</Button>
+              <Button onClick={() => navigate(PACIENT_ROUTE)}>Личный кабинет</Button>
               <Button onClick={() => logOutP()}>Выход</Button>
             </Nav>
           :

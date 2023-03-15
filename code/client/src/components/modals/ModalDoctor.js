@@ -5,7 +5,7 @@ import {Context} from "../../index";
 import Dropdown from 'react-bootstrap/Dropdown';
 
 
-const CreateType = ({show, onHide}) => {
+const CreateType = ({show, onHide}) => {        //где-то здесь
   const {doctor} = useContext(Context)
   const {timet} = useContext(Context)
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
@@ -24,7 +24,6 @@ const CreateType = ({show, onHide}) => {
   const CustomMenu = React.forwardRef(
     ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
       const [value, setValue] = useState('');
-
       return (
         <div
           ref={ref}
@@ -64,20 +63,14 @@ const CreateType = ({show, onHide}) => {
                 <Form>
                     <Form.Control
                     className="mt-4 p-2"
-                      //  value={value}
-                      //  onChange={e => setValue(e.target.value)}
                         placeholder={"Введите имя"}
                     />
                     <Form.Control
                     className="mt-4 p-2"
-                      //  value={value}
-                      //  onChange={e => setValue(e.target.value)}
                         placeholder={"Введите фамилию"}
                     />
                     <Form.Control
                     className="mt-4 p-2"
-                      //  value={value}
-                      //  onChange={e => setValue(e.target.value)}
                         placeholder={"Введите пароль"}
                     />
                 </Form>
