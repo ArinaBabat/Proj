@@ -1,7 +1,7 @@
 const {Specialties} = require('../models/models')
 const ApiError = require('../error/ApiError');
 class SpecialityController {
-  async create(req, res, next) { // deprecated
+  /*async create(req, res, next) { // deprecated
     try {
       const {name} = req.body
       const candidate = await Specialties.findOne({where: {name}})
@@ -13,13 +13,13 @@ class SpecialityController {
     } catch (e) {
           next(ApiError.badRequest(e.message))
       }
-  }
+  }*/
   async getAll(req, res) {
     const speciality = await Specialties.findAll()
     return res.json(speciality)
   }
-  async delet(req, res) { // deprecated
+  /*async delet(req, res) { // deprecated
 
-  }
+  }*/
 }
 module.exports = new SpecialityController()

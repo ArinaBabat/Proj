@@ -3,7 +3,7 @@ const ApiError = require('../error/ApiError');
 
 class PacientController {
   async redirect(req, res) {
-    return res.redirect('http://localhost:3000/auth-redirect')
+    return res.redirect(`${process.env.UI_HOST}/auth-redirect`)
   }
   async get(req, res) {
     return res.json({ user: req.user })
@@ -25,7 +25,7 @@ class PacientController {
       if (!doctor) {
         return next(ApiError.internal('Такого врача нет'));
       }
-      await Pacients.update({ doctorDoctor_id: doctor_id }, { where: { pacient_id: req.user.pacient_id } });
+      await Pacients.update({ doctorDoctorId: doctor_id }, { where: { pacient_id: req.user.pacient_id } });
       return res.json({ success: true });
     } catch (e) {
       console.log(e);

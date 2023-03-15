@@ -15,6 +15,15 @@ class TimetableController {
           next(ApiError.badRequest(e.message))
       }
   }
+  async delet(req, res) {
+    try {
+      const { timetable_id } = req.body
+      await Timetable.destroy({ where: { timetable_id } });
+      return res.json({ success: true });
+    } catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
+  }
   async getAll(req, res) {
     let {day, doctorDoctorId, cabinetCabinetId, limit, page} = req.query
         page = page || 1
@@ -47,8 +56,10 @@ class TimetableController {
         }
     return res.json(timetable)
   }
-  async delet(req, res) { // TODO
-
+  async getOne(req, res) {
+    const { id } = req.params
+    const timetable = await Timetable.findOne({ where: { timetable_id: id } })
+    return res.json(timetable)
   }
 }
 module.exports = new TimetableController()

@@ -3,7 +3,7 @@ const ApiError = require('../error/ApiError');
 
 class CabinetController {
   
-  async create(req, res, next) { // deprecated
+  /*async create(req, res, next) { // deprecated
     try {
       const {number, specialitySpecialityId} = req.body
       const cabinet = await Cabinets.create({number, specialitySpecialityId})
@@ -11,7 +11,7 @@ class CabinetController {
     } catch (e) {
           next(ApiError.badRequest(e.message))
       }
-  }
+  }*/
   async getAll(req, res) {
     let {specialitySpecialityId, limit, page} = req.query
     page = page || 1
@@ -26,8 +26,8 @@ class CabinetController {
     }
     return res.json(cabinet)
   }
-  async delet(req, res) { // deprecated
+  /*async delet(req, res) { // deprecated
 
-  }
+  }*/
 }
 module.exports = new CabinetController()
