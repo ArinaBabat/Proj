@@ -1,11 +1,11 @@
 import {$authHost, $host} from "./index";
 import jwt_decode from "jwt-decode";
 
-export const registration = async (first_name, last_name, address, phone, password, doctorDoctorId) => {
-    const {data} = await $host.post('api/pacient/registration', {first_name, last_name, address, phone, password, doctorDoctorId})
-    localStorage.setItem('token', data.token)
-    return jwt_decode(data.token)
-}
+//export const registration = async (first_name, last_name, address, phone, password, doctorDoctorId) => {
+//    const {data} = await $host.post('api/pacient/registration', {first_name, last_name, address, phone, password, doctorDoctorId})
+//    localStorage.setItem('token', data.token)
+//    return jwt_decode(data.token)
+//}
 
 export const dlogin = async (doctor_id, password) => {
   const {data} = await $host.post('api/doctor/login', {doctor_id, password})
@@ -14,13 +14,21 @@ export const dlogin = async (doctor_id, password) => {
 }
 export const plogin = async () => {
   const {user} = await $host.get('api/pacient/get')
-  console.log(user)
+  console.log(user)                           //здесь
     return (user)
 }
-
 
 export const dcheck = async () => {
     const {data} = await $authHost.get('api/doctor/auth' )        //здесь
       localStorage.setItem('token', data.token)
       return (jwt_decode(data.token))
+}
+export const pcheck = async () => {
+  const {user} = await $authHost.get('api/pacient/get')
+  console.log(user)
+    return (user)
+}
+export const plogout = async () => {
+    const {data} = await $authHost.get('api/pacient/logout' )
+    return (data)
 }

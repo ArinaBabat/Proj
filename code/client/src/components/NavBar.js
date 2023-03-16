@@ -9,6 +9,7 @@ import {NavLink} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import {useNavigate} from 'react-router-dom'
 import {$authHost, $host} from "../index";
+import {plogout} from "../http/userAPI";
 
 const NavBar = observer( () => {
   const {pacient} = useContext(Context)
@@ -25,10 +26,9 @@ const NavBar = observer( () => {
       const logOutP = () => {
               pacient.setUser({})
               pacient.setIsAuth(false)
-              localStorage.setItem('token', '')
-              window.location.replace(
-                "http://localhost:5000/api/pacient/logout/"
-              );
+              //localStorage.setItem('token', '')
+              plogout()
+              navigate(TIMETABLE_ROUTE)
           }
 
   return (

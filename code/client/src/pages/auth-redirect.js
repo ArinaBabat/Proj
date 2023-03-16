@@ -3,30 +3,24 @@ import React, {useContext, useEffect} from 'react';
 import {observer} from "mobx-react-lite";
 import {TIMETABLE_ROUTE} from "../utils/consts";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
+import {Context} from "../index";
 
 const LoginSuccess = observer(() => {
-  console.log("1")
   const navigate = useNavigate();
-console.log("2")
+  const {pacient} = useContext(Context);
   useEffect(() => {
-    console.log("3")
     setTimeout(() => {
-      console.log("4")
-    const psignIn = async () =>{
-      console.log("5")
+//    const psignIn = async () =>{
       try {
-        let pacient;
-        console.log("pacient")
-        pacient = await plogin()
-        console.log(pacient)
-        pacient.setUser(pacient);
+        let user;
+        user = plogin()
+        pacient.setUser(user);
         pacient.setIsAuth(true)
         navigate(TIMETABLE_ROUTE)
       }catch (e) {
         alert(e.response.data.message);
       }
-    };
-    console.log("?")
+//    };
   }, 1000)
   }, [])
 
