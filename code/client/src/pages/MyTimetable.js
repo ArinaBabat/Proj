@@ -7,11 +7,13 @@ import {Context} from "../index";
 import {fetchTimetable, fetchCabinet, fetchDoctor} from "../http/timAPI";
 
 const MyTimetable = () => {
-  const {timet} = useContext(Context)
+  const { timet } = useContext(Context)
+  const { doct } = useContext(Context)
+  const [loading, setLoading] = useState(0)
   useEffect(() => {
-        fetchCabinet().then(data => timet.setCab(data))
-        fetchDoctor().then(data => {timet.setDoc(data); console.log(data)})
-        fetchTimetable().then(data => { timet.setTim(data); console.log(data) })
+    fetchCabinet().then(data => { timet.setCab(data); setLoading(1) })
+    fetchDoctor().then(data => { timet.setDoc(data); console.log(data); setLoading(2) })
+    fetchTimetable(undefined, undefined, doct.doc.id).then(data => { timet.setTim(data); console.log(data); setLoading(3) })
     }, [])
   return (
     <Table striped>
@@ -29,8 +31,8 @@ const MyTimetable = () => {
           key={tim.timetable_id}
         >
         <td>{tim.day}</td>
-        <td>{tim.start_of_admission}</td>
-        <td>{tim.end_of_reception}</td>
+        <td>{tim.start_of_admission/60}:{tim.start_of_admission%60||"00"}</td>
+        <td>{tim.end_of_reception/60}:{tim.end_of_reception%60||"00"}</td>
         <td>{tim.cabinetCabinetId}</td>
       </tr>
       )}

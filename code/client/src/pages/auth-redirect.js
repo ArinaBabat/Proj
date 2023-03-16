@@ -1,4 +1,4 @@
-import {plogin} from "../http/userAPI";
+import { pcheck } from "../http/userAPI";
 import React, {useContext, useEffect} from 'react';
 import {observer} from "mobx-react-lite";
 import {TIMETABLE_ROUTE} from "../utils/consts";
@@ -10,17 +10,17 @@ const LoginSuccess = observer(() => {
   const {pacient} = useContext(Context);
   useEffect(() => {
     setTimeout(() => {
-//    const psignIn = async () =>{
       try {
-        let user;
-        user = plogin()
-        pacient.setUser(user);
-        pacient.setIsAuth(true)
-        navigate(TIMETABLE_ROUTE)
+        pcheck().then(data => {
+          if (data) {
+            pacient.setUser(data)
+            pacient.setIsAuth(true)
+          }
+          navigate(TIMETABLE_ROUTE)
+        })
       }catch (e) {
         alert(e.response.data.message);
       }
-//    };
   }, 1000)
   }, [])
 

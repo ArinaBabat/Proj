@@ -9,13 +9,15 @@ import {fetchTimetable, fetchCabinet, fetchSpeciality, fetchDoctor} from "../htt
 
 const Timetable = observer(() => {
   const {timet} = useContext(Context)
+  const [loading1, setLoading1] = useState(true)
+  const [loading2, setLoading2] = useState(true)
+  const [loading3, setLoading3] = useState(true)
+  const [loading4, setLoading4] = useState(true)
   useEffect(() => {
-        fetchTimetable().then(data => {
-          timet.setTim(data.rows)
-        })
-        fetchCabinet().then(data => timet.setCab(data))
-        fetchDoctor().then(data => timet.setDoc(data))
-        fetchSpeciality().then(data => timet.setSpec(data))
+    fetchTimetable().then(data => { timet.setTim(data); setLoading1(false) })
+    fetchCabinet().then(data => { timet.setCab(data); setLoading2(false) })
+    fetchDoctor().then(data => { timet.setDoc(data); setLoading3(false) })
+    fetchSpeciality().then(data => { timet.setSpec(data); setLoading4(false) })
     }, [])
   return (
     <Container
@@ -36,12 +38,12 @@ const Timetable = observer(() => {
           </tr>
         </thead>
         <tbody>
-        {timet && timet.tim && timet.tim.rows && timet.tim.rows.map(tim =>
+            {!loading1 && !loading2 && !loading3 && !loading4 && timet && timet.tim && timet.tim.rows && timet.tim.rows.map(tim =>
           <tr
             key={tim.timetable_id}
           >
-          <td>{}</td>
-
+          <td>{timet.spec.find((s) => { return s.speciality_id === timet.doc.rows.find((d) => { return d.doctor_id === tim.doctorDoctorId }).specialitySpecialityId }).name }</td>
+          <td>{timet.doc.rows.find((d) => { return d.doctor_id === tim.doctorDoctorId }).first_name} {timet.doc.rows.find((d) => { return d.doctor_id === tim.doctorDoctorId }).last_name}</td>
           <td>{tim.day}</td>
           <td>{tim.start_of_admission}</td>
           <td>{tim.end_of_reception}</td>
