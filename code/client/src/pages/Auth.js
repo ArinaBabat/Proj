@@ -46,7 +46,7 @@ const Auth = observer( () => {
       doct.setDoc(doctor);
       doct.setIsDoc(true)
       if (doctor.role === "HEAD_PHYSICIAN"){doct.setIsHp(true)}
-      navigate(TIMETABLE_ROUTE)
+      window.location.replace("http://localhost:3000/");
     }catch (e) {
       alert(e.response.data.message);
     }
