@@ -14,8 +14,10 @@ const LoginSuccess = observer(() => {
       try {
         let user;
         user = plogin()
+        console.log(user)
         pacient.setUser(user);
         pacient.setIsAuth(true)
+        console.log(pacient)
         navigate(TIMETABLE_ROUTE)
       }catch (e) {
         alert(e.response.data.message);
