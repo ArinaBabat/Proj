@@ -63,7 +63,7 @@ const NewRecord = () => {
               key={tim.timetable_id}
               value={tim.timetable_id}
             >
-              {tim.timetable_id}, {tim.day}, начало: {(tim.end_of_reception-tim.end_of_reception%60)/60}:{tim.start_of_admission%60||"00"}, конец: {(tim.end_of_reception-tim.end_of_reception%60)/60}:{tim.end_of_reception%60||"00"}
+              {tim.timetable_id}, {tim.day}, начало: {(tim.start_of_admission-tim.start_of_admission%60)/60}:{tim.start_of_admission%60||"00"}, конец: {(tim.end_of_reception-tim.end_of_reception%60)/60}:{tim.end_of_reception%60||"00"}
             </option>
           )}
     </Form.Select>
