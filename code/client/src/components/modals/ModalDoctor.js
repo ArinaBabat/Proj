@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import Modal from "react-bootstrap/Modal";
 import {Form, Button} from "react-bootstrap";
 import {Context} from "../../index";
-import Dropdown from 'react-bootstrap/Dropdown';
+
 
 
 const CreateType = ({show, onHide}) => {        //где-то здесь
@@ -73,29 +73,17 @@ const CreateType = ({show, onHide}) => {        //где-то здесь
                     className="mt-4 p-2"
                         placeholder={"Введите пароль"}
                     />
+                    <Form.Select className="mt-2 mb-2">
+                      <option>Выбpaть роль</option>
+                      <option value="1">Доктор</option>
+                      <option value="2">Главный врач</option>
+                    </Form.Select>
+                    <Form.Select className="mt-2 mb-2">
+                      <option>Выбpaть специальность</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                    </Form.Select>
                 </Form>
-                <Dropdown className="mt-2 mb-2">
-                  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                    Выбрать роль
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu as={CustomMenu}>
-                      <Dropdown.Item eventKey="1"> Доктор </Dropdown.Item>
-                      <Dropdown.Item eventKey="2"> Главный врач </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown
-                className="mt-2 mb-2">
-                  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                    Выбрать специальность
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu as={CustomMenu}>
-                    {timet.spec.map( spec =>
-                      <Dropdown.Item key={timet.cab.specialitySpecialityId}> {spec.name} </Dropdown.Item>
-                    )}
-                  </Dropdown.Menu>
-                </Dropdown>
             </Modal.Body>
             <Modal.Footer>
 
