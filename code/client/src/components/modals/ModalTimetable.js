@@ -12,10 +12,10 @@ const CreateTim = ({show, onHide}) => {
   const [start, setStart] = useState('');
   const [stop, setStop] = useState('');
   const [doc, setDoc] = useState('');
-  const [cab, setCab] = useState("1");
+  const [cab, setCab] = useState("");
   useEffect(() => {
         fetchCabinet().then(data => timet.setCab(data))
-        fetchDoctor().then(data => timet.setDoc(data))
+        fetchDoctor().then(data => {timet.setDoc(data); console.log(data)})
     }, [])
 
   const addTim = async () =>{
@@ -27,8 +27,6 @@ const CreateTim = ({show, onHide}) => {
     setDay('');
     setStart('');
     setStop('');
-    setDoc('');
-    setCab('');
   }
 
 
@@ -47,7 +45,7 @@ const CreateTim = ({show, onHide}) => {
             <Form>
             <Form.Select className="mt-4 mb-2" value={day} onChange={e => {
               setDay(e.target.value);}}>
-              <option>Выбpaть день</option>
+              <option value="">Выберите день</option>
               <option value="Понедельник">Понедельник</option>
               <option value="Вторник">Вторник</option>
               <option value="Среда">Среда</option>
@@ -72,21 +70,30 @@ const CreateTim = ({show, onHide}) => {
                 }}
                     placeholder={"Конец приёма"}
                 />
-                <Form.Select className="mt-4 mb-2">
-                  <option>Выбpaть врача</option>
-                  {timet.doc.map(doc =>
+            <Form.Select className="mt-4 mb-2" value={doc} onChange={e => {
+              setDoc(e.target.value);
+            }}>
+              <option value="">Выберите врача</option>
+              {timet.doc && timet.doc.rows && timet.doc.rows.map(doc =>
                                 <option
                                     onClick={() => timet.setDoc(doc)}
-                                    key={doc.id}
+                                    key={doc.doctor_id}
+                                    value={doc.doctor_id}
                                 >
-                                    {doc.first_name, doc.last_name}
+                                {doc.first_name} {doc.last_name}
                                 </option>
                             )}
                 </Form.Select>
-                <Form.Select className="mt-4 mb-2">
-                  <option>Выбpaть кабинет</option>
+            <Form.Select className="mt-4 mb-2" value={cab} onChange={e => {
+              setCab(e.target.value);
+            }}>
+                  <option value="">Выберите кабинет</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
                 </Form.Select>
             </Form>
         </Modal.Body>

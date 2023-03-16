@@ -1,7 +1,18 @@
-import React from 'react';
+//import { $authHost, $host } from "../../http/index";
+import React, {useContext, useEffect, useState} from 'react';
 import Table from 'react-bootstrap/Table';
+import Modal from "react-bootstrap/Modal";
+import {Form, Button} from "react-bootstrap";
+import {Context} from "../index";
+import {fetchTimetable, fetchCabinet, fetchDoctor} from "../http/timAPI";
 
 const MyTimetable = () => {
+  const {timet} = useContext(Context)
+  useEffect(() => {
+        fetchCabinet().then(data => timet.setCab(data))
+        fetchDoctor().then(data => {timet.setDoc(data); console.log(data)})
+        fetchTimetable().then(data => timet.tim())
+    }, [])
   return (
     <Table striped>
       <thead>
@@ -14,56 +25,16 @@ const MyTimetable = () => {
         </tr>
       </thead>
       <tbody>
+        {timet.tim && timet.tim.rows && timet.tim.rows.map(tim =>
         <tr >
           <td>Понедельник</td>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
+          <td>{tim.start_of_admission||"---"}</td>
+          <td>{tim.end_of_admission||"---"}</td>
+          <td>{tim.cabinetCabinetId||"---"}</td>
           <td>@mdo</td>
         </tr>
-        <tr>
-          <td>Вторник</td>
-          <td>1</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>Среда</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>@twitter</td>
-        </tr>
-        <tr>
-          <td>Четверг</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>@twitter</td>
-        </tr>
-        <tr>
-          <td>Пятница</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>@twitter</td>
-        </tr>
-        <tr>
-          <td>Суббота</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>@twitter</td>
-        </tr>
-        <tr>
-          <td>Воскресенье</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>@twitter</td>
-        </tr>
 
+      )}
       </tbody>
     </Table>
   );
