@@ -8,8 +8,16 @@ import {Context} from "../index";
 
 const Pacients = () => {
   const {doct} = useContext(Context);
-    const data = $authHost.get('api/doctor/pacients',doct.doc.id)
-    console.log(data)
+  const [pacients, setPacients] = useState(null)
+  useEffect(() => {
+    const a = async () => {
+      const { data } = await $authHost.get('api/doctor/pacients', doct.doc.id);
+      setPacients(data);
+      console.log(data)
+    }
+    a();
+  }, [])
+    
   return (
     <Table striped>
       <thead>
@@ -21,7 +29,7 @@ const Pacients = () => {
         </tr>
       </thead>
       <tbody>
-        {data.rows && data.rows.map(data =>
+        {pacients && pacients.rows && pacients.rows.map(data =>
                           <tr
                               key={data.pacient_id}
                           >
