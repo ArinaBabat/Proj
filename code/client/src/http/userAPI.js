@@ -13,20 +13,24 @@ export const dlogin = async (doctor_id, password) => {
   return jwt_decode(data.token)
 }
 export const plogin = async () => {
-  const {user} = await $host.get('api/pacient/get')
-  console.log(user)                           //здесь
-    return (user)
+  const {data} = await $host.get('api/pacient/get')
+  return (data.user)
 }
 
 export const dcheck = async () => {
-    const {data} = await $authHost.get('api/doctor/auth' )        //здесь
-      localStorage.setItem('token', data.token)
-      return (jwt_decode(data.token))
+    const {data} = await $authHost.get('api/doctor/auth' )
+    if(data.message) {
+      return null;
+    }
+    localStorage.setItem('token', data.token)
+    return (jwt_decode(data.token))
 }
 export const pcheck = async () => {
-  const {user} = await $authHost.get('api/pacient/get')
-  console.log(user)
-    return (user)
+  const {data} = await $authHost.get('api/pacient/get')
+  if(data.message) {
+    return null;
+  }
+  return (data.user)
 }
 export const plogout = async () => {
     const {data} = await $authHost.get('api/pacient/logout' )

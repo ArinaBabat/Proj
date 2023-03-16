@@ -13,18 +13,24 @@ const App = observer(() => {
   const [loading, setLoading] = useState(true)
       useEffect(() => {
         dcheck().then(data => {        //здесь
-          doct.setDoc(data)
-          if (data.role === "DOCTOR"){
-            doct.setIsDoc(true)
-          } else if (data.role === "HEAD_PHYSICIAN"){
+          if(data) {
+            doct.setDoc(data);
+            if (data.role === "DOCTOR") {
+              doct.setIsDoc(true)
+            } else if (data.role === "HEAD_PHYSICIAN") {
               doct.setIsDoc(true)
               doct.setIsHp(true)
-            } else {
-              pcheck().then(data => {
+            }
+          }
+          else {
+            pcheck().then(data => {
+              if(data) {
                 pacient.setUser(data)
                 pacient.setIsAuth(true)
-              })
-            }
+              }
+              
+            })
+          }
         }
       ).finally(() => setLoading(false))
       }, [])

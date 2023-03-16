@@ -16,6 +16,8 @@ const NavBar = observer( () => {
   const {doct} = useContext(Context)
   const navigate = useNavigate()
 
+  //              <Button onClick={() => navigate(PRESCRIPTIONS_ROUTE)}>Мои назначения</Button>
+
   const logOutD = () => {
           doct.setDoc({})
           doct.setIsDoc(false)
@@ -52,7 +54,7 @@ const NavBar = observer( () => {
           :
           pacient.isAuth ?
             <Nav className="ml-auto">
-              <Button onClick={() => navigate(PRESCRIPTIONS_ROUTE)}>Мои назначения</Button>
+
               <Button onClick={() => navigate(NEW_RECORD_ROUTE)}>Запись к врачу</Button>
               <Button onClick={() => navigate(PACIENT_RECORDS_ROUTE)}>Предстоящие записи</Button>
               <Button onClick={() => navigate(PACIENT_ROUTE)}>Личный кабинет</Button>
