@@ -10,7 +10,7 @@ import {fetchTimetable, fetchCabinet, fetchSpeciality, fetchDoctor} from "../htt
 const Timetable = observer(() => {
   const {timet} = useContext(Context)
   useEffect(() => {
-        fetchTimetable(null, null, null, 1, 2).then(data => {
+        fetchTimetable().then(data => {
           timet.setTim(data.rows)
         })
         fetchCabinet().then(data => timet.setCab(data))
@@ -19,7 +19,7 @@ const Timetable = observer(() => {
     }, [])
   return (
     <Container
-      className="d-flex justify-content-center align-items-center"
+      className="mt-4 mb-2"
       style={{height: window.innerHeight*1.25}}
       >
       <div>
@@ -41,7 +41,7 @@ const Timetable = observer(() => {
             key={tim.timetable_id}
           >
           <td>{}</td>
-          <td>{tim.doc.first_name} {tim.doc.last_name}</td>
+
           <td>{tim.day}</td>
           <td>{tim.start_of_admission}</td>
           <td>{tim.end_of_reception}</td>
