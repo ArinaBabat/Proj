@@ -49,7 +49,7 @@ const Records = () => {
             <td>Otto</td>
             <td>@mdo</td>
             <td>@mdo</td>
-            <td><Button variant="danger" onClick={() => setModalShow(true)}>
+            <td><Button variant="outline-danger" onClick={() => setModalShow(true)}>
         Отменить
       </Button>
 
@@ -64,7 +64,7 @@ const Records = () => {
             <td>Thornton</td>
             <td>@fat</td>
             <td>@mdo</td>
-            <td><Button variant="danger" onClick={() => setModalShow(true)}>
+            <td><Button variant="outline-danger" onClick={() => setModalShow(true)}>
         Отменить
       </Button>
 
@@ -79,7 +79,7 @@ const Records = () => {
             <td>@twitter</td>
             <td>@mdo</td>
             <td>@mdo</td>
-            <td><Button variant="danger" onClick={() => setModalShow(true)}>
+            <td><Button variant="outline-danger" onClick={() => setModalShow(true)}>
         Отменить
       </Button>
 

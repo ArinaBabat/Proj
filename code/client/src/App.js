@@ -21,6 +21,7 @@ const App = observer(() => {
               doct.setIsDoc(true)
               doct.setIsHp(true)
             }
+            setLoading(false)
           }
           else {
             pcheck().then(data => {
@@ -28,11 +29,12 @@ const App = observer(() => {
                 pacient.setUser(data)
                 pacient.setIsAuth(true)
               }
-              
+            }).finally(() => {
+              setLoading(false)
             })
           }
         }
-      ).finally(() => setLoading(false))
+      )
       }, [])
     if (loading) {
         return <Spinner animation={"grow"}/>
