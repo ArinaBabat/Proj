@@ -1,0 +1,177 @@
+config:
+  target: "http://localhost:5000/api"
+  plugins:
+    expect: {}
+  phases:
+    - duration: 20
+      arrivalRate: 200
+      name: Test
+  payload:
+    - path: "data/doctors.csv"
+      fields:
+        - "doctor_id"
+    - path: "data/records.csv"
+      fields:
+        - "record_id"
+    - path: "data/timetables.csv"
+      fields:
+        - "timetable_id"
+    - path: "data/tokens.csv"
+      fields:
+        - "token"
+    - path: "data/sessions.csv"
+      fields:
+        - "session"
+        - "session.sig"
+
+scenarios:
+  - name: "get cabinets"
+    flow:
+      - get:
+          url: "/cabinet"
+          expect:
+            - statusCode: 200
+  - name: "get specialities"
+    flow:
+      - get:
+          url: "/speciality"
+          expect:
+            - statusCode: 200
+  - name: "get doctors"
+    flow:
+      - get:
+          url: "/doctor"
+          expect:
+            - statusCode: 200
+  - name: "get doctor"
+    flow:
+      - get:
+          url: "/doctor/{{ doctor_id }}"
+          expect:
+            - statusCode: 200
+  - name: "get records"
+    flow:
+      - get:
+          url: "/record"
+          expect:
+            - statusCode: 200
+  - name: "get record"
+    flow:
+      - get:
+          url: "/record/{{ record_id }}"
+          expect:
+            - statusCode: 200
+  - name: "get timetables"
+    flow:
+      - get:
+          url: "/timetable"
+          expect:
+            - statusCode: 200
+  - name: "get timetable"
+    flow:
+      - get:
+          url: "/timetable/{{ timetable_id }}"
+          expect:
+            - statusCode: 200
+  - name: "do stuff 1"
+    flow:
+    - get:
+        url: "/pacient/get"
+        expect:
+          - statusCode: 200
+    - get:
+        url: "/timetable/{{ timetable_id }}"
+        expect:
+          - statusCode: 200
+  - name: "do stuff 2"
+    flow:
+    - get:
+        url: "/doctor"
+        expect:
+          - statusCode: 200
+    - get:
+        url: "/record/{{ record_id }}"
+        expect:
+          - statusCode: 200
+    - get:
+        url: "/timetable/{{ timetable_id }}"
+        expect:
+          - statusCode: 200
+  - name: "get pacient"
+    flow:
+    - get:
+        url: "/pacient/get"
+        cookie:
+          session: "{{ session }}"
+          session.sig: "{{ session.sig }}"
+        capture:
+          json: "$.user"
+          as: "user"
+        expect:
+          - hasProperty: 'user.pacient_id'
+  - name: "get doctor auth and timetable"
+    flow:
+    - get:
+        url: "/doctor/auth"
+        headers:
+          authorization: "token: {{ token }}"
+        expect:
+          - statusCode: 200
+    - get:
+        url: "/timetable/{{ timetable_id }}"
+        expect:
+          - statusCode: 200
+  - name: "do doctor stuff"
+    flow:
+    - get:
+        url: "/doctor/auth"
+        headers:
+          authorization: "token: {{ token }}"
+        expect:
+          - statusCode: 200
+    - get:
+        url: "/doctor/pacients"
+        headers:
+          authorization: "token: {{ token }}"
+        expect:
+          - statusCode: 200
+    - get:
+        url: "/timetable/"
+        expect:
+          - statusCode: 200
+    - get:
+        url: "/timetable/{{ timetable_id }}"
+        expect:
+          - statusCode: 200
+    - get:
+        url: "/record/{{ record_id }}"
+        expect:
+          - statusCode: 200
+    - get:
+        url: "/record"
+        expect:
+          - statusCode: 200
+    - get:
+        url: "/record/{{ record_id }}"
+        expect:
+          - statusCode: 200
+  - name: "get pacient and get records"
+    flow:
+    - get:
+        url: "/pacient/get"
+        cookie:
+          session: "{{ session }}"
+          session.sig: "{{ session.sig }}"
+        capture:
+          json: "$.user"
+          as: "user"
+        expect:
+          - hasProperty: 'user.pacient_id'
+    - get:
+        url: "/record"
+        expect:
+          - statusCode: 200
+    - get:
+        url: "/record/{{ record_id }}"
+        expect:
+          - statusCode: 200

@@ -1,0 +1,363 @@
+{
+  "aggregate": {
+    "counters": {
+      "vusers.created_by_name.get pacient and get records": 282,
+      "vusers.created": 4000,
+      "http.requests": 7449,
+      "vusers.created_by_name.get timetables": 268,
+      "http.codes.200": 7449,
+      "http.responses": 7449,
+      "plugins.expect.ok": 7449,
+      "plugins.expect.ok.hasProperty": 570,
+      "plugins.expect.ok.statusCode": 6879,
+      "vusers.failed": 0,
+      "vusers.completed": 4000,
+      "vusers.created_by_name.get doctors": 284,
+      "vusers.created_by_name.get record": 306,
+      "vusers.created_by_name.do stuff 1": 253,
+      "vusers.created_by_name.do doctor stuff": 295,
+      "vusers.created_by_name.get doctor": 288,
+      "vusers.created_by_name.get specialities": 282,
+      "vusers.created_by_name.get doctor auth and timetable": 320,
+      "vusers.created_by_name.get pacient": 288,
+      "vusers.created_by_name.do stuff 2": 271,
+      "vusers.created_by_name.get records": 295,
+      "vusers.created_by_name.get timetable": 293,
+      "vusers.created_by_name.get cabinets": 275
+    },
+    "rates": {
+      "http.request_rate": 354
+    },
+    "firstCounterAt": 1678983723606,
+    "firstHistogramAt": 1678983723705,
+    "lastCounterAt": 1678983745057,
+    "lastHistogramAt": 1678983745057,
+    "firstMetricAt": 1678983723606,
+    "lastMetricAt": 1678983745057,
+    "period": 1678983740000,
+    "summaries": {
+      "http.response_time": {
+        "min": 0,
+        "max": 1089,
+        "count": 7449,
+        "p50": 757.6,
+        "median": 757.6,
+        "p75": 982.6,
+        "p90": 1022.7,
+        "p95": 1043.3,
+        "p99": 1064.4,
+        "p999": 1085.9
+      },
+      "vusers.session_length": {
+        "min": 6.4,
+        "max": 5207,
+        "count": 4000,
+        "p50": 963.1,
+        "median": 963.1,
+        "p75": 1043.3,
+        "p90": 2369,
+        "p95": 3464.1,
+        "p99": 5065.6,
+        "p999": 5168
+      }
+    },
+    "histograms": {
+      "http.response_time": {
+        "min": 0,
+        "max": 1089,
+        "count": 7449,
+        "p50": 757.6,
+        "median": 757.6,
+        "p75": 982.6,
+        "p90": 1022.7,
+        "p95": 1043.3,
+        "p99": 1064.4,
+        "p999": 1085.9
+      },
+      "vusers.session_length": {
+        "min": 6.4,
+        "max": 5207,
+        "count": 4000,
+        "p50": 963.1,
+        "median": 963.1,
+        "p75": 1043.3,
+        "p90": 2369,
+        "p95": 3464.1,
+        "p99": 5065.6,
+        "p999": 5168
+      }
+    }
+  },
+  "intermediate": [
+    {
+      "counters": {
+        "vusers.created_by_name.get pacient and get records": 92,
+        "vusers.created": 1208,
+        "http.requests": 2089,
+        "vusers.created_by_name.get timetables": 92,
+        "http.codes.200": 1891,
+        "http.responses": 1891,
+        "plugins.expect.ok": 1891,
+        "plugins.expect.ok.hasProperty": 155,
+        "plugins.expect.ok.statusCode": 1736,
+        "vusers.failed": 0,
+        "vusers.completed": 1010,
+        "vusers.created_by_name.get doctors": 87,
+        "vusers.created_by_name.get record": 94,
+        "vusers.created_by_name.do stuff 1": 79,
+        "vusers.created_by_name.do doctor stuff": 90,
+        "vusers.created_by_name.get doctor": 89,
+        "vusers.created_by_name.get specialities": 71,
+        "vusers.created_by_name.get doctor auth and timetable": 101,
+        "vusers.created_by_name.get pacient": 83,
+        "vusers.created_by_name.do stuff 2": 83,
+        "vusers.created_by_name.get records": 84,
+        "vusers.created_by_name.get timetable": 87,
+        "vusers.created_by_name.get cabinets": 76
+      },
+      "rates": {
+        "http.request_rate": 350
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1678983723606,
+      "firstHistogramAt": 1678983723705,
+      "lastCounterAt": 1678983729999,
+      "lastHistogramAt": 1678983729998,
+      "firstMetricAt": 1678983723606,
+      "lastMetricAt": 1678983729999,
+      "period": "1678983720000",
+      "summaries": {
+        "http.response_time": {
+          "min": 0,
+          "max": 757,
+          "count": 1891,
+          "p50": 354.3,
+          "median": 354.3,
+          "p75": 518.1,
+          "p90": 620.3,
+          "p95": 645.6,
+          "p99": 742.6,
+          "p999": 742.6
+        },
+        "vusers.session_length": {
+          "min": 6.4,
+          "max": 2922.2,
+          "count": 1010,
+          "p50": 478.3,
+          "median": 478.3,
+          "p75": 620.3,
+          "p90": 907,
+          "p95": 1587.9,
+          "p99": 2465.6,
+          "p999": 2780
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 0,
+          "max": 757,
+          "count": 1891,
+          "p50": 354.3,
+          "median": 354.3,
+          "p75": 518.1,
+          "p90": 620.3,
+          "p95": 645.6,
+          "p99": 742.6,
+          "p999": 742.6
+        },
+        "vusers.session_length": {
+          "min": 6.4,
+          "max": 2922.2,
+          "count": 1010,
+          "p50": 478.3,
+          "median": 478.3,
+          "p75": 620.3,
+          "p90": 907,
+          "p95": 1587.9,
+          "p99": 2465.6,
+          "p999": 2780
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.get records": 153,
+        "vusers.created": 2000,
+        "http.requests": 3624,
+        "http.codes.200": 3543,
+        "http.responses": 3543,
+        "plugins.expect.ok": 3543,
+        "plugins.expect.ok.statusCode": 3262,
+        "vusers.failed": 0,
+        "vusers.completed": 1919,
+        "plugins.expect.ok.hasProperty": 281,
+        "vusers.created_by_name.do stuff 1": 136,
+        "vusers.created_by_name.get pacient": 158,
+        "vusers.created_by_name.get doctor": 137,
+        "vusers.created_by_name.get record": 157,
+        "vusers.created_by_name.get timetable": 139,
+        "vusers.created_by_name.get cabinets": 142,
+        "vusers.created_by_name.get doctor auth and timetable": 160,
+        "vusers.created_by_name.get pacient and get records": 130,
+        "vusers.created_by_name.get specialities": 154,
+        "vusers.created_by_name.do doctor stuff": 147,
+        "vusers.created_by_name.get doctors": 138,
+        "vusers.created_by_name.get timetables": 113,
+        "vusers.created_by_name.do stuff 2": 136
+      },
+      "rates": {
+        "http.request_rate": 364
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1678983730000,
+      "firstHistogramAt": 1678983730000,
+      "lastCounterAt": 1678983739999,
+      "lastHistogramAt": 1678983739998,
+      "firstMetricAt": 1678983730000,
+      "lastMetricAt": 1678983739999,
+      "period": "1678983730000",
+      "summaries": {
+        "http.response_time": {
+          "min": 9,
+          "max": 1062,
+          "count": 3543,
+          "p50": 820.7,
+          "median": 820.7,
+          "p75": 982.6,
+          "p90": 1022.7,
+          "p95": 1022.7,
+          "p99": 1043.3,
+          "p999": 1064.4
+        },
+        "vusers.session_length": {
+          "min": 23.7,
+          "max": 5083.6,
+          "count": 1919,
+          "p50": 982.6,
+          "median": 982.6,
+          "p75": 1043.3,
+          "p90": 2416.8,
+          "p95": 3828.5,
+          "p99": 4965.3,
+          "p999": 5065.6
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 9,
+          "max": 1062,
+          "count": 3543,
+          "p50": 820.7,
+          "median": 820.7,
+          "p75": 982.6,
+          "p90": 1022.7,
+          "p95": 1022.7,
+          "p99": 1043.3,
+          "p999": 1064.4
+        },
+        "vusers.session_length": {
+          "min": 23.7,
+          "max": 5083.6,
+          "count": 1919,
+          "p50": 982.6,
+          "median": 982.6,
+          "p75": 1043.3,
+          "p90": 2416.8,
+          "p95": 3828.5,
+          "p99": 4965.3,
+          "p999": 5065.6
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.get records": 58,
+        "vusers.created": 792,
+        "http.requests": 1736,
+        "http.codes.200": 2015,
+        "http.responses": 2015,
+        "plugins.expect.ok": 2015,
+        "plugins.expect.ok.statusCode": 1881,
+        "vusers.failed": 0,
+        "vusers.completed": 1071,
+        "vusers.created_by_name.do doctor stuff": 58,
+        "vusers.created_by_name.get pacient and get records": 60,
+        "vusers.created_by_name.get doctor": 62,
+        "vusers.created_by_name.get cabinets": 57,
+        "vusers.created_by_name.get doctor auth and timetable": 59,
+        "vusers.created_by_name.do stuff 2": 52,
+        "vusers.created_by_name.get specialities": 57,
+        "plugins.expect.ok.hasProperty": 134,
+        "vusers.created_by_name.get record": 55,
+        "vusers.created_by_name.get doctors": 59,
+        "vusers.created_by_name.get timetable": 67,
+        "vusers.created_by_name.get pacient": 47,
+        "vusers.created_by_name.get timetables": 63,
+        "vusers.created_by_name.do stuff 1": 38
+      },
+      "rates": {
+        "http.request_rate": 348
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1678983740000,
+      "firstHistogramAt": 1678983740000,
+      "lastCounterAt": 1678983745057,
+      "lastHistogramAt": 1678983745057,
+      "firstMetricAt": 1678983740000,
+      "lastMetricAt": 1678983745057,
+      "period": "1678983740000",
+      "summaries": {
+        "http.response_time": {
+          "min": 8,
+          "max": 1089,
+          "count": 2015,
+          "p50": 982.6,
+          "median": 982.6,
+          "p75": 1022.7,
+          "p90": 1043.3,
+          "p95": 1064.4,
+          "p99": 1064.4,
+          "p999": 1085.9
+        },
+        "vusers.session_length": {
+          "min": 19.5,
+          "max": 5207,
+          "count": 1071,
+          "p50": 1043.3,
+          "median": 1043.3,
+          "p75": 1901.1,
+          "p90": 3072.4,
+          "p95": 4965.3,
+          "p99": 5065.6,
+          "p999": 5168
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 8,
+          "max": 1089,
+          "count": 2015,
+          "p50": 982.6,
+          "median": 982.6,
+          "p75": 1022.7,
+          "p90": 1043.3,
+          "p95": 1064.4,
+          "p99": 1064.4,
+          "p999": 1085.9
+        },
+        "vusers.session_length": {
+          "min": 19.5,
+          "max": 5207,
+          "count": 1071,
+          "p50": 1043.3,
+          "median": 1043.3,
+          "p75": 1901.1,
+          "p90": 3072.4,
+          "p95": 4965.3,
+          "p99": 5065.6,
+          "p999": 5168
+        }
+      }
+    }
+  ]
+}

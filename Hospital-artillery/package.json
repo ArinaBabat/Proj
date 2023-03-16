@@ -1,0 +1,22 @@
+{
+  "name": "lamet-artillery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahrami/Lamet-artillery.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahrami/Lamet-artillery/issues"
+  },
+  "homepage": "https://github.com/ahrami/Lamet-artillery#readme",
+  "dependencies": {
+    "artillery": "^2.0.0-27"
+  }
+}
