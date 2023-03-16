@@ -49,10 +49,10 @@ const NewRecord = () => {
             </option>
           )}
     </Form.Select>*/}}
-        <Form.Select 
-        className="mt-4 p-2" 
+        <Form.Select
+        className="mt-4 p-2"
         aria-label="Default select example"
-        value={tim} 
+        value={tim}
         onChange={e => {
           setTim(e.target.value);
         }}>
@@ -63,7 +63,7 @@ const NewRecord = () => {
               key={tim.timetable_id}
               value={tim.timetable_id}
             >
-              {tim.timetable_id}, {tim.day}, начало: {tim.start_of_admission}, конец: {tim.end_of_reception}
+              {tim.timetable_id}, {tim.day}, начало: {(tim.end_of_reception-tim.end_of_reception%60)/60}:{tim.start_of_admission%60||"00"}, конец: {(tim.end_of_reception-tim.end_of_reception%60)/60}:{tim.end_of_reception%60||"00"}
             </option>
           )}
     </Form.Select>

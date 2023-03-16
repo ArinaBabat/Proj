@@ -31,8 +31,8 @@ const MyTimetable = () => {
           key={tim.timetable_id}
         >
         <td>{tim.day}</td>
-        <td>{tim.start_of_admission/60}:{tim.start_of_admission%60||"00"}</td>
-        <td>{tim.end_of_reception/60}:{tim.end_of_reception%60||"00"}</td>
+        <td>{(tim.end_of_reception-tim.end_of_reception%60)}:{tim.start_of_admission%60||"00"}</td>
+        <td>{(tim.end_of_reception-tim.end_of_reception%60)/60}:{tim.end_of_reception%60||"00"}</td>
         <td>{tim.cabinetCabinetId}</td>
       </tr>
       )}
