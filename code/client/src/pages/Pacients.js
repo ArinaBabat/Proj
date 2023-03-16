@@ -1,3 +1,4 @@
+import { $authHost, $host } from "../http/index";
 import React, {useContext, useState, useEffect} from 'react';
 import Table from 'react-bootstrap/Table';
 import {useNavigate} from 'react-router-dom'
@@ -6,14 +7,9 @@ import {fetchTimetable, fetchCabinet, fetchSpeciality, fetchDoctor} from "../htt
 import {Context} from "../index";
 
 const Pacients = () => {
-  const navigate = useNavigate()
-  const {timet} = useContext(Context)
-  useEffect(() => {
-        fetchTimetable().then(data => timet.setTimetable(data))
-        fetchCabinet().then(data => timet.setCabinet(data))
-        fetchDoctor().then(data => timet.setDoctor(data))
-        fetchSpeciality().then(data => timet.setSpec(data))
-    }, [])
+  const {doct} = useContext(Context);
+    const data = $authHost.get('api/doctor/pacients',doct.doc.id)
+    console.log(data)
   return (
     <Table striped>
       <thead>
@@ -25,15 +21,14 @@ const Pacients = () => {
         </tr>
       </thead>
       <tbody>
-        {timet.doc && timet.doc.rows && timet.doc.rows.map(doc =>
+        {data.rows && data.rows.map(data =>
                           <tr
-                              key={doc.doctor_id}
-                              value={doc.doctor_id}
+                              key={data.pacient_id}
                           >
-                          <td>1</td>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
+                          <td>{data.first_name}</td>
+                          <td>{data.last_name}</td>
+                          <td>{data.mail}</td>
+                          <td>{data.address}</td>
                         </tr>
                       )}
       </tbody>
