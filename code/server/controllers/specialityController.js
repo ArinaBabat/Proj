@@ -15,7 +15,11 @@ class SpecialityController {
       }
   }*/
   async getAll(req, res) {
-    const speciality = await Specialties.findAll()
+    const speciality = await Specialties.findAll({
+      order: [
+        ['speciality_id', 'ASC'],
+      ],
+    })
     return res.json(speciality)
   }
   /*async delet(req, res) { // deprecated

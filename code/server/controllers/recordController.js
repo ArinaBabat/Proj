@@ -8,27 +8,47 @@ class RecordController {
       }
       let pacientPacientId = req.user.pacient_id;
       try {
-        const {time, doctorDoctorId, timetableTimetableId} = req.body
+        const {start, timetableTimetableId} = req.body
+
         const timetable = (await Timetable.findOne({ where: { timetable_id: timetableTimetableId } })).dataValues;
-        if (parseInt(time) < timetable.start_of_admission) {
+
+        if (!timetable) {
+          return next(ApiError.badRequest('Такого в расписании нет'))
+        }
+
+        const startObject = new Date(start);
+        const endObject = new Date(startObject.getTime() + 15 * 60 * 1000)
+
+        const t_start = new Date(timetable.start);
+        const t_end = new Date(timetable.end);
+
+        if (startObject < t_start) {
           return next(ApiError.badRequest("Неправильное время"));
         }
-        if (parseInt(time) + 15 > timetable.end_of_reception) {
+        if (endObject > t_end) {
           return next(ApiError.badRequest("Неправильное время"));
         }
-        if (parseInt(time) % 15 !== 0) {
+        if ((parseInt(startObject.getTime() / 60000) - parseInt(t_start.getTime() / 60000)) % 15 !== 0) {
           return next(ApiError.badRequest("Неправильное время"));
         }
-        if (!!await Records.findOne({ where: { time: { [Op.gte]: time, [Op.lt]: (time + 15) }, doctorDoctorId, timetableTimetableId } })) {
+        if (!!await Records.findOne({ 
+          where: { 
+            start: { 
+              [Op.gte]: startObject.toString(), 
+              [Op.lt]: endObject.toString()
+            },
+            timetableTimetableId 
+          } })
+        ) {
           return next(ApiError.badRequest("Время занято"));
         }
-        const record = await Records.create({ time, pacientPacientId, doctorDoctorId, timetableTimetableId })
+        const record = await Records.create({ start: startObject.toString(), end: endObject.toString(), pacientPacientId, timetableTimetableId })
         return res.json(record);
       } catch (e) {
             return next(ApiError.badRequest(e.message))
         }
     }
-  async delet(req, res) {
+  async delet(req, res, next) {
     if (!req.user) {
       next(ApiError.badRequest("Пользователь не авторизован"))
     }
@@ -37,7 +57,7 @@ class RecordController {
       await Records.destroy({ where: { record_id, pacientPacientId: req.user.pacient_id } });
       return res.json({ success: true });
     } catch (e) {
-      next(ApiError.badRequest(e.message))
+      return next(ApiError.badRequest(e.message))
     }
   }
   async getAll(req, res) {

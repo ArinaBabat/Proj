@@ -1,19 +1,78 @@
-const {Timetable, Doctors} = require('../models/models')
+const { Timetable, Doctors, Cabinets } = require('../models/models')
 const ApiError = require('../error/ApiError');
+const { Op } = require("sequelize");
 
 class TimetableController {
   async create(req, res, next) {
     try {
-      const {day, start_of_admission, end_of_reception, cabinetCabinetId, doctorDoctorId} = req.body
-      if (!doctorDoctorId || !day|| !start_of_admission || !end_of_reception || !cabinetCabinetId) {
+      const { start, end, cabinetCabinetId, doctorDoctorId} = req.body
+
+      if (!doctorDoctorId || !start || !end || !cabinetCabinetId) {
             return next(ApiError.badRequest('Необходимо заполнить все поля'))
+        }
+
+        const doctor = await Doctors.findOne({
+          where: { doctor_id: doctorDoctorId }
+        });
+
+        const cabinet = await Cabinets.findOne({
+          where: { cabinet_id: cabinetCabinetId }
+        });
+
+      if (!doctor || !cabinet) {
+        return next(ApiError.badRequest('Неправильные поля'))
       }
-      
-      const timetable = await Timetable.create({day, start_of_admission, end_of_reception, cabinetCabinetId, doctorDoctorId})
+
+        if (cabinet.speciality_id !== doctor.speciality_id) {
+          return next(ApiError.badRequest('Специальность доктора и кабинета должна совпадать'))
+        }
+
+      if (new Date(start) >= new Date(end)) {
+        return next(ApiError.badRequest('Неправильное время'))
+      }
+
+      const collision = await Timetable.findOne(
+      { where: 
+        { [Op.or]: [
+          { [Op.and]: [
+            { cabinetCabinetId }, 
+            {
+              start: {
+                [Op.lt]: end
+              }
+            },
+            {
+              end: {
+                [Op.gt]: start
+              }
+            }
+          ]},
+          {
+            [Op.and]: [
+              { doctorDoctorId },
+              {
+                start: {
+                  [Op.lt]: end
+                }
+              },
+              {
+                end: {
+                  [Op.gt]: start
+                }
+              }
+            ]
+          }
+        ]}
+      });
+      if (collision) {
+        return next(ApiError.badRequest('Расписание пересекается'))
+      }
+
+      const timetable = await Timetable.create({start, end, cabinetCabinetId, doctorDoctorId});
       return res.json(timetable)
     } catch (e) {
-          next(ApiError.badRequest(e.message))
-      }
+        next(ApiError.badRequest(e.message))
+    }
   }
   async delet(req, res) {
     try {

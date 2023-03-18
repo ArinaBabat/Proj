@@ -3,12 +3,11 @@ import { Context } from "../index";
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import ModalPerscription from "../components/modals/ModalPerscription";
 import { fetchTimetable, fetchCabinet, fetchSpeciality, fetchDoctor } from "../http/timAPI";
 import { $authHost, $host } from "../http/index";
 
-const Perscriptions = () => {
-  const [PerVisible, setPerVisible] = useState(false)
+
+const MyRecords = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const { timet } = useContext(Context)
   const { pacient } = useContext(Context)
@@ -34,11 +33,9 @@ const Perscriptions = () => {
       <Table striped>
         <thead>
           <tr>
-            <th>День</th>
             <th>Время</th>
-            <th>Кабинет</th>
-            <th>Специальность</th>
-            <th>Врач</th>
+            <th>Имя пациента</th>
+            <th>Фамилия пациента</th>
             <th></th>
           </tr>
         </thead>
@@ -47,32 +44,16 @@ const Perscriptions = () => {
             <tr
               key={r.record_id}
             >
-              <td>{r.record_id} {timet.tim.rows.find((t) => { return t.timetable_id === r.timetableTimetableId }).day}</td>
-              <td>{(r.time - r.time % 60) / 60}:{r.time % 60 || "00"}</td>
-              <td>{timet.tim.rows.find((t) => { return t.timetable_id === r.timetableTimetableId }).cabinetCabinetId}</td>
-              <td>{
-              timet.spec.find(
-                (s) => { return s.speciality_id === timet.doc.rows.find(
-                  (d) => { return d.doctor_id === timet.tim.rows.find(
-                    (t) => { return t.timetable_id === r.timetableTimetableId }
-                  ).doctorDoctorId }
-                ).specialitySpecialityId }
-              ).name
-              }</td>
-              <td>{timet.doc.rows.find((d) => { return d.doctor_id === timet.tim.rows.find((t) => { return t.timetable_id === r.timetableTimetableId }).doctorDoctorId }).first_name} {
-              timet.doc.rows.find((d) => { return d.doctor_id === timet.tim.rows.find((t) => { return t.timetable_id === r.timetableTimetableId }).doctorDoctorId }).last_name}</td>
-              <td><Button variant="outline-primary"
-              onClick={() => setPerVisible(true)}>
-                Просмотр заключения
+
+              <td><Button variant="outline-primary" >
+                Написать заключение
               </Button>
                 </td>
             </tr>
           )}
         </tbody>
-        <ModalPerscription show={PerVisible} onHide={() => setPerVisible(false)}/>
       </Table>
-
     );
   }
 
-export default Perscriptions;
+export default MyRecords;

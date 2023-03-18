@@ -1,6 +1,7 @@
 import { $authHost, $host } from "../http/index";
 import React, {useContext, useState, useEffect} from 'react';
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 import {useNavigate} from 'react-router-dom'
 import {PRESCRIPTIONS_ROUTE} from "../utils/consts";
 import {fetchTimetable, fetchCabinet, fetchSpeciality, fetchDoctor} from "../http/timAPI";
@@ -9,6 +10,7 @@ import {Context} from "../index";
 const Pacients = () => {
   const {doct} = useContext(Context);
   const [pacients, setPacients] = useState(null)
+  const navigate = useNavigate()
   useEffect(() => {
     const a = async () => {
       const { data } = await $authHost.get('api/doctor/pacients', doct.doc.id);
@@ -17,7 +19,7 @@ const Pacients = () => {
     }
     a();
   }, [])
-    
+
   return (
     <Table striped>
       <thead>
@@ -37,6 +39,11 @@ const Pacients = () => {
                           <td>{data.last_name}</td>
                           <td>{data.mail}</td>
                           <td>{data.address}</td>
+                          <td><Button variant="outline-primary"
+                          onClick={() => navigate(PRESCRIPTIONS_ROUTE)}>
+                            Просмотр заключений
+                          </Button>
+                            </td>
                         </tr>
                       )}
       </tbody>

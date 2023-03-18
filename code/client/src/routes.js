@@ -31,7 +31,7 @@ export const authRoutes = [
     Component: NewRecord
   },
   {
-    path: PRESCRIPTIONS_ROUTE + '/id',
+    path: PRESCRIPTIONS_ROUTE ,
     Component: Prescriptions
   },
   {

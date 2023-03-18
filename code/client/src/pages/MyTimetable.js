@@ -34,6 +34,11 @@ const MyTimetable = () => {
         <td>{(tim.start_of_admission-tim.start_of_admission%60)/60}:{tim.start_of_admission%60||"00"}</td>
         <td>{(tim.end_of_reception-tim.end_of_reception%60)/60}:{tim.end_of_reception%60||"00"}</td>
         <td>{tim.cabinetCabinetId}</td>
+        <td><Button variant="outline-primary"
+        >
+          Записи
+        </Button>
+          </td>
       </tr>
       )}
       </tbody>

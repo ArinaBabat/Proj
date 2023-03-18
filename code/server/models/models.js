@@ -16,15 +16,16 @@ const Doctors = sequelize.define('doctor', {
 })
 const Timetable = sequelize.define('timetable', {
     timetable_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    day: {type: DataTypes.STRING, allowNull: false},
-    start_of_admission: {type: DataTypes.INTEGER, allowNull: false},
-    end_of_reception:{type: DataTypes.INTEGER, allowNull: false},
+    start: {type: DataTypes.DATE, allowNull: false},
+    end: { type: DataTypes.DATE, allowNull: false},
 })
 const Records = sequelize.define('record', {
     record_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    time:{type: DataTypes.INTEGER,allowNull: false},
+    start: { type: DataTypes.DATE, allowNull: false },
+    end: { type: DataTypes.DATE, allowNull: false },
 })
 const Prescriptions = sequelize.define('prescription', {
+    prescription_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     diagnostic: {type: DataTypes.STRING},
     therapy: {type: DataTypes.STRING},
 })
@@ -43,9 +44,6 @@ Pacients.belongsTo(Doctors)
 
 Pacients.hasMany(Records)
 Records.belongsTo(Pacients)
-
-Doctors.hasMany(Records)
-Records.belongsTo(Doctors)
 
 Timetable.hasMany(Records)
 Records.belongsTo(Timetable)
