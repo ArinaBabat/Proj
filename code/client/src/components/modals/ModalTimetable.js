@@ -23,13 +23,12 @@ const CreateTim = ({show, onHide}) => {
       alert('Необходимо заполнить все поля');
       return
     }
-    let data = await $authHost.post('api/timetable/create', { day, start_of_admission:start, end_of_reception:stop, cabinetCabinetId:cab, doctorDoctorId: doc })
+    let data = await $authHost.post('api/timetable/create', { day, start, end:stop, cabinetCabinetId:cab, doctorDoctorId: doc })
     setDay('');
     setStart('');
     setStop('');
   }
-
-
+  
     return (
         <Modal
            show={show}
