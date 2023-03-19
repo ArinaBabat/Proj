@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HOSPITAL>
+          <DATABASE>
+                    <TABLE name="Specialties">
+                    <COLUMNS>
+                             <COLUMN type="integer">speciality_id</COLUMN>
+                             <COLUMN type="text">name</COLUMN>
+                    </COLUMNS>
+                    <CONSTRAINTS>
+                                 <CONSTRAINT type="PRIMARY KEY">
+                                             <COLUMN>speciality_id</COLUMN>
+                                 </CONSTRAINT>
+                                 <CONSTRAINT type="UNIQUE">
+                                             <COLUMN>name</COLUMN>
+                                 </CONSTRAINT>
+                    </CONSTRAINTS>
+                    </TABLE>
+                    <TABLE name="Cabinets">
+                    <COLUMNS>
+                             <COLUMN type="integer">cabinet_id</COLUMN>
+                             <COLUMN type="integer">speciality_id</COLUMN>
+                             <COLUMN type="integer">number</COLUMN>
+                    </COLUMNS>
+                    <CONSTRAINTS>
+                                 <CONSTRAINT type="PRIMARY KEY">
+                                             <COLUMN>cabinet_id</COLUMN>
+                                 </CONSTRAINT>
+                                 <CONSTRAINT type="FOREIGN KEY">
+                                             <COLUMN>speciality_id</COLUMN>
+                                 </CONSTRAINT>
+                    </CONSTRAINTS>
+                    </TABLE>
+                    <TABLE name="Doctors">
+                    <COLUMNS>
+                             <COLUMN type="integer">doctor_id</COLUMN>
+                             <COLUMN type="text">first_name</COLUMN>
+                             <COLUMN type="text">last_name</COLUMN>
+                             <COLUMN type="integer">speciality_id</COLUMN>
+                             <COLUMN type="text">password</COLUMN>
+                             <COLUMN type="text">role</COLUMN>
+                    </COLUMNS>
+                    <CONSTRAINTS>
+                                 <CONSTRAINT type="PRIMARY KEY">
+                                             <COLUMN>doctor_id</COLUMN>
+                                 </CONSTRAINT>
+                                 <CONSTRAINT type="FOREIGN KEY">
+                                             <COLUMN>speciality_id</COLUMN>
+                                 </CONSTRAINT>
+                    </CONSTRAINTS>
+                    </TABLE>
+                    <TABLE name="Patients">
+                    <COLUMNS>
+                             <COLUMN type="integer">patient_id</COLUMN>
+                             <COLUMN type="integer">doctor_id</COLUMN>
+                             <COLUMN type="text">first_name</COLUMN>
+                             <COLUMN type="text">last_name</COLUMN>
+                             <COLUMN type="text">address</COLUMN>
+                             <COLUMN type="text">mail</COLUMN>
+                    </COLUMNS>
+                    <CONSTRAINTS>
+                                 <CONSTRAINT type="PRIMARY KEY">
+                                             <COLUMN>patient_id</COLUMN>
+                                 </CONSTRAINT>
+                                 <CONSTRAINT type="FOREIGN KEY">
+                                             <COLUMN>doctor_id</COLUMN>
+                                 </CONSTRAINT>
+                    </CONSTRAINTS>
+                    </TABLE>
+                    <TABLE name="Timetable">
+                    <COLUMNS>
+                             <COLUMN type="integer">timetable_id</COLUMN>
+                             <COLUMN type="integer">cabinet_id</COLUMN>
+                             <COLUMN type="integer">doctor_id</COLUMN>
+                             <COLUMN type="timestamp with time zone">start</COLUMN>
+                             <COLUMN type="timestamp with time zone">end</COLUMN>
+                    </COLUMNS>
+                    <CONSTRAINTS>
+                                 <CONSTRAINT type="PRIMARY KEY">
+                                             <COLUMN>patient_id</COLUMN>
+                                 </CONSTRAINT>
+                                 <CONSTRAINT type="FOREIGN KEY">
+                                             <COLUMN>cabinet_id</COLUMN>
+                                 </CONSTRAINT>
+                                 <CONSTRAINT type="FOREIGN KEY">
+                                             <COLUMN>doctor_id</COLUMN>
+                                 </CONSTRAINT>
+                    </CONSTRAINTS>
+                    </TABLE>
+                    <TABLE name="Records">
+                    <COLUMNS>
+                             <COLUMN type="integer">record_id</COLUMN>
+                             <COLUMN type="integer">timetable_id</COLUMN>
+                             <COLUMN type="integer">patient_id</COLUMN>
+                             <COLUMN type="timestamp with time zone">start</COLUMN>
+                             <COLUMN type="timestamp with time zone">end</COLUMN>
+                    </COLUMNS>
+                    <CONSTRAINTS>
+                                 <CONSTRAINT type="PRIMARY KEY">
+                                             <COLUMN>record_id</COLUMN>
+                                 </CONSTRAINT>
+                                 <CONSTRAINT type="FOREIGN KEY">
+                                             <COLUMN>timetable_id</COLUMN>
+                                 </CONSTRAINT>
+                                 <CONSTRAINT type="FOREIGN KEY">
+                                             <COLUMN>patient_id</COLUMN>
+                                 </CONSTRAINT>
+                    </CONSTRAINTS>
+                    </TABLE>
+                    <TABLE name="Prescriptions">
+                    <COLUMNS>
+                             <COLUMN type="integer">record_id</COLUMN>
+                             <COLUMN type="text">diagnostic</COLUMN>
+                             <COLUMN type="text">therapy</COLUMN>
+                    </COLUMNS>
+                    <CONSTRAINTS>
+                                 <CONSTRAINT type="PRIMARY KEY">
+                                             <COLUMN>record_id</COLUMN>
+                                 </CONSTRAINT>
+                                 <CONSTRAINT type="FOREIGN KEY">
+                                             <COLUMN>record_id</COLUMN>
+                                 </CONSTRAINT>
+                    </CONSTRAINTS>
+                    </TABLE>
+          </DATABASE>
+          <DESCRIPTION>
+                       <TITLE>Синяя птица</TITLE>
+                       <SECTION name="Описание">
+                                <ELEMENT>Сайт поликлиники с возможностью электронной записи.</ELEMENT>
+                                <ELEMENT>Возможен вход в качестве врача и пациета.</ELEMENT>
+                       </SECTION>
+                       <SECTION name="Данные">
+                                <ELEMENT name="Patients">Таблица с данными пациентов и id лечащего врача.</ELEMENT>
+                                <ELEMENT name="Doctors">Доктора и их специальности. Сюда же входит главврач.</ELEMENT>
+                                <ELEMENT name="Timetable">Расписание.</ELEMENT>
+                                <ELEMENT name="Records">Записи.</ELEMENT>
+                                <ELEMENT name="Prescriptions">Заключения после приёма: диагноз, назначения.</ELEMENT>
+                                <ELEMENT name="Cabinets">Таблица данных о том, для какой специальности врача оборудованы кабинеты.</ELEMENT>
+                                <ELEMENT name="Specialties">Список имеющихся специальностей.</ELEMENT>
+                       </SECTION>
+                       <SECTION name="Общие ограничения целостности">
+                                <ELEMENT>Назначения пациента доступны только ему и его лечащему врачу.</ELEMENT>
+                                <ELEMENT>Вносить изменения в расписание может только главврач.</ELEMENT>
+                       </SECTION>
+                       <SECTION name="Пользовательские роли">
+                                <SUBSECTION name="guest">
+                                            <ELEMENT>просмотр расписания</ELEMENT>
+                                </SUBSECTION>
+                                <SUBSECTION name="patient">
+                                            <ELEMENT>просмотр расписания</ELEMENT>
+                                            <ELEMENT>запись к врачу</ELEMENT>
+                                            <ELEMENT>отмена предстоящей записи</ELEMENT>
+                                            <ELEMENT>просмотр своих назначений и диагнозов</ELEMENT>
+                                            <ELEMENT>редактирование своих данных</ELEMENT>
+                                            <ELEMENT>выбор лечащего врача</ELEMENT>
+                                </SUBSECTION>
+                                <SUBSECTION name="doctor">
+                                            <ELEMENT>просмотр расписания</ELEMENT>
+                                            <ELEMENT>просмотр своих предстоящих записей</ELEMENT>
+                                            <ELEMENT>просмотр назначений и прочих данных своих пациентов</ELEMENT>
+                                            <ELEMENT>просмотр своего расписания</ELEMENT>
+                                            <ELEMENT>написание заключений</ELEMENT>
+                                </SUBSECTION>
+                                <SUBSECTION name="head_physician">
+                                            <ELEMENT>просмотр расписания</ELEMENT>
+                                            <ELEMENT>просмотр своих предстоящих записей</ELEMENT>
+                                            <ELEMENT>просмотр назначений и прочих данных своих пациентов</ELEMENT>
+                                            <ELEMENT>просмотр своего расписания</ELEMENT>
+                                            <ELEMENT>написание заключений</ELEMENT>
+                                            <ELEMENT>возможность внести изменения в расписание</ELEMENT>
+                                            <ELEMENT>возможность добавить нового врача</ELEMENT>
+                                </SUBSECTION>
+                       </SECTION>
+                       <SECTION name="Технологии разработки">
+                                <SUBSECTION name="Язык программирования">
+                                            <ELEMENT>JavaScript</ELEMENT>
+                                </SUBSECTION>
+                                <SUBSECTION name="СУБД">
+                                            <ELEMENT>PostgreSQL</ELEMENT>
+                                </SUBSECTION>
+                                <SUBSECTION name="Frontend">
+                                            <ELEMENT>React JS</ELEMENT>
+                                </SUBSECTION>
+                                <SUBSECTION name="Backend">
+                                            <ELEMENT>Node JS с фреймворком Express</ELEMENT>
+                                </SUBSECTION>
+                       </SECTION>
+          </DESCRIPTION>
+</HOSPITAL>
+
