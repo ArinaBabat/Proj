@@ -59,10 +59,14 @@ const CreateType = ({show, onHide}) => {
       alert('Необходимо заполнить все поля');
       return
     }
-    let data = await $authHost.post('api/doctor/create', { first_name, last_name, password, role, specialitySpecialityId: speciality })
-    setfn('');
-    setln('');
-    setp('');
+    try {
+      let data = await $authHost.post('api/doctor/create', { first_name, last_name, password, role, specialitySpecialityId: speciality })
+      window.location.replace("http://localhost:3000/headphysician");
+    } catch (e) {
+      alert(e.response.data.message);
+    }
+    
+    
   }
     return (
         <Modal

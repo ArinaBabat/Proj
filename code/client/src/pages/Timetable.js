@@ -8,16 +8,19 @@ import Table from 'react-bootstrap/Table';
 import {fetchTimetable, fetchCabinet, fetchSpeciality, fetchDoctor} from "../http/timAPI";
 
 const Timetable = observer(() => {
-  const {timet} = useContext(Context)
   const [loading1, setLoading1] = useState(true)
   const [loading2, setLoading2] = useState(true)
   const [loading3, setLoading3] = useState(true)
   const [loading4, setLoading4] = useState(true)
+  const [tims, setTims] = useState(null);
+  const [specs, setSpecs] = useState(null);
+  const [docs, setDocs] = useState(null);
+  const [cabs, setCabs] = useState(null);
   useEffect(() => {
-    fetchTimetable().then(data => { timet.setTim(data); setLoading1(false) })
-    fetchCabinet().then(data => { timet.setCab(data); setLoading2(false) })
-    fetchDoctor().then(data => { timet.setDoc(data); setLoading3(false) })
-    fetchSpeciality().then(data => { timet.setSpec(data); setLoading4(false) })
+    fetchTimetable().then(data => { setTims(data.rows); setLoading1(false) })
+    fetchCabinet().then(data => { setCabs(data.rows); setLoading2(false) })
+    fetchDoctor().then(data => { setDocs(data.rows); setLoading3(false) })
+    fetchSpeciality().then(data => { setSpecs(data); setLoading4(false) })
     }, [])
   return (
     <Container
@@ -31,24 +34,36 @@ const Timetable = observer(() => {
           <tr>
           <th>Специальность</th>
           <th>Врач</th>
-          <th>День недели</th>
+          <th>Дата</th>
           <th>Начало приёма</th>
           <th>Конец приёма</th>
           <th>Кабинет</th>
           </tr>
         </thead>
         <tbody>
-            {!loading1 && !loading2 && !loading3 && !loading4 && timet && timet.tim && timet.tim.rows && timet.tim.rows.map(tim =>
-          <tr
-            key={tim.timetable_id}
-          >
-          <td>{timet.spec.find((s) => { return s.speciality_id === timet.doc.rows.find((d) => { return d.doctor_id === tim.doctorDoctorId }).specialitySpecialityId }).name }</td>
-          <td>{timet.doc.rows.find((d) => { return d.doctor_id === tim.doctorDoctorId }).first_name} {timet.doc.rows.find((d) => { return d.doctor_id === tim.doctorDoctorId }).last_name}</td>
-          <td>{tim.day}</td>
-          <td>{(tim.start_of_admission-tim.start_of_admission%60)/60}:{tim.start_of_admission%60||"00"}</td>
-          <td>{(tim.end_of_reception-tim.end_of_reception%60)/60}:{tim.end_of_reception%60||"00"}</td>
-          <td>{tim.cabinetCabinetId}</td>
-        </tr>
+          {cabs && specs && docs && tims && tims.map(tim =>
+          <tr key={tim.timetable_id}>
+              <td>
+                {specs.find((spec) => { 
+                  return spec.speciality_id === docs.find((doc) => { 
+                    return doc.doctor_id === tim.doctorDoctorId 
+                  }).specialitySpecialityId 
+                }).name}
+              </td>
+              <td>
+                {
+                docs.find((doc) => { 
+                  return doc.doctor_id === tim.doctorDoctorId }).first_name} {
+                docs.find((doc) => { 
+                  return doc.doctor_id === tim.doctorDoctorId }).last_name}
+              </td>
+              <td>{(new Date(tim.start)).toDateString()}</td>
+              <td>{(new Date(tim.start)).toTimeString()}</td>
+              <td>{(new Date(tim.end)).toTimeString()}</td>
+              <td>{cabs.find((cab) => {
+                return tim.cabinetCabinetId === cab.cabinet_id
+                }).number}</td>
+          </tr>
         )}
         </tbody>
       </Table>

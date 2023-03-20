@@ -58,7 +58,7 @@ const NavBar = observer( () => {
               <Button onClick={() => navigate(NEW_RECORD_ROUTE)}>Запись к врачу</Button>
               <Button onClick={() => navigate(PACIENT_RECORDS_ROUTE)}>Предстоящие записи</Button>
               <Button onClick={() => navigate(PACIENT_ROUTE)}>Личный кабинет</Button>
-              <Button onClick={() => navigate(PRESCRIPTIONS_ROUTE)}>Мои назначения</Button>
+              <Button onClick={() => navigate(PRESCRIPTIONS_ROUTE)}>Мои диагнозы</Button>
               <Button onClick={() => logOutP()}>Выход</Button>
             </Nav>
           :

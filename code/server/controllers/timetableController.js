@@ -90,13 +90,23 @@ class TimetableController {
         let offset = page * limit - limit
         let timetable;
         if (!day && !doctorDoctorId && !cabinetCabinetId) {
-            timetable = await Timetable.findAndCountAll({})
+          timetable = await Timetable.findAndCountAll({
+            order: [
+              ['start', 'ASC'],
+            ],
+          })
         }
         if (day && !doctorDoctorId && !cabinetCabinetId) {
-            timetable = await Timetable.findAndCountAll({where:{day}})
+          timetable = await Timetable.findAndCountAll({
+            order: [
+              ['start', 'ASC'],
+            ], where:{day}})
         }
         if (!day && doctorDoctorId && !cabinetCabinetId) {
-            timetable = await Timetable.findAndCountAll({where:{doctorDoctorId}})
+          timetable = await Timetable.findAndCountAll({
+            order: [
+              ['start', 'ASC'],
+            ], where:{doctorDoctorId}})
         }
         if (day && doctorDoctorId && !cabinetCabinetId) {
             timetable = await Timetable.findAndCountAll({where:{doctorDoctorId, day}, limit, offset})

@@ -3,19 +3,22 @@ import React, {useContext, useEffect, useState} from 'react';
 import Modal from "react-bootstrap/Modal";
 import {Form, Button} from "react-bootstrap";
 import {Context} from "../../index";
-import {fetchCabinet, fetchDoctor} from "../../http/timAPI";
+import {fetchCabinet, fetchDoctor, fetchSpeciality} from "../../http/timAPI";
 //import {observer} from "mobx-react-lite";
 
 const CreateTim = ({show, onHide}) => {
-  const {timet} = useContext(Context)
   const[day,setDay] = useState('')
   const [start, setStart] = useState('');
   const [stop, setStop] = useState('');
   const [doc, setDoc] = useState('');
-  const [cab, setCab] = useState("");
+  const [cab, setCab] = useState('');
+  const [specs, setSpecs] = useState(null);
+  const [docs, setDocs] = useState(null);
+  const [cabs, setCabs] = useState(null);
   useEffect(() => {
-        fetchCabinet().then(data => timet.setCab(data))
-        fetchDoctor().then(data => {timet.setDoc(data); console.log(data)})
+        fetchCabinet().then(data => { setCabs(data); })
+        fetchDoctor().then(data => { setDocs(data); })
+        fetchSpeciality().then(data => { setSpecs(data); })
     }, [])
 
   const addTim = async () =>{
@@ -23,10 +26,24 @@ const CreateTim = ({show, onHide}) => {
       alert('Необходимо заполнить все поля');
       return
     }
-    let data = await $authHost.post('api/timetable/create', { day, start, end:stop, cabinetCabinetId:cab, doctorDoctorId: doc })
-    setDay('');
-    setStart('');
-    setStop('');
+    let startObj;
+    let endObj;
+    try {
+      startObj = new Date(day + ' ' + start + '+03');
+      endObj = new Date(day + ' ' + stop + '+03');
+    } catch (e) {
+      alert(e.message);
+    }
+    try {
+      let data = await $authHost.post('api/timetable/create', { start: startObj.toString(), end:endObj.toString(), cabinetCabinetId:cab, doctorDoctorId: doc });
+      setDay('');
+      setStart('');
+      setStop('');
+
+    } catch (e) {
+      alert(e.response.data.message);
+    }
+    
   }
   
     return (
@@ -42,24 +59,21 @@ const CreateTim = ({show, onHide}) => {
         </Modal.Header>
         <Modal.Body>
             <Form>
-            <Form.Select className="mt-4 mb-2" value={day} onChange={e => {
-              setDay(e.target.value);}}>
-              <option value="">Выберите день</option>
-              <option value="Понедельник">Понедельник</option>
-              <option value="Вторник">Вторник</option>
-              <option value="Среда">Среда</option>
-              <option value="Четверг">Четверг</option>
-              <option value="Пятница">Пятница</option>
-              <option value="Суббота">Суббота</option>
-              <option value="Воскресенье">Воскресенье</option>
-            </Form.Select>
+            <Form.Control
+              className="mt-4 p-2"
+              value={day}
+              onChange={e => {
+                setDay(e.target.value);
+              }}
+              placeholder={"Дата (гггг-мм-дд)"}
+            />
                 <Form.Control
                 className="mt-4 p-2"
                 value={start}
                 onChange={e => {
                   setStart(e.target.value);
                 }}
-                    placeholder={"Начало приёма"}
+                    placeholder={"Начало приёма (чч:мм)"}
                 />
                 <Form.Control
                 className="mt-4 p-2"
@@ -67,15 +81,14 @@ const CreateTim = ({show, onHide}) => {
                 onChange={e => {
                   setStop(e.target.value);
                 }}
-                    placeholder={"Конец приёма"}
+              placeholder={"Конец приёма (чч:мм)"}
                 />
             <Form.Select className="mt-4 mb-2" value={doc} onChange={e => {
               setDoc(e.target.value);
             }}>
               <option value="">Выберите врача</option>
-              {timet.doc && timet.doc.rows && timet.doc.rows.map(doc =>
+              {docs && docs.rows && docs.rows.map(doc =>
                                 <option
-                                    onClick={() => timet.setDoc(doc)}
                                     key={doc.doctor_id}
                                     value={doc.doctor_id}
                                 >
@@ -83,17 +96,21 @@ const CreateTim = ({show, onHide}) => {
                                 </option>
                             )}
                 </Form.Select>
-            <Form.Select className="mt-4 mb-2" value={cab} onChange={e => {
+            {doc !== '' && specs && cabs &&  <Form.Select className="mt-4 mb-2" value={cab} onChange={e => {
               setCab(e.target.value);
             }}>
-                  <option value="">Выберите кабинет</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                </Form.Select>
+              <option value="">Выберите кабинет</option>
+              {cabs && cabs.rows && cabs.rows.map(cab => 
+              (cab.specialitySpecialityId === docs.rows.find(d => { return d.doctor_id == doc }).specialitySpecialityId && 
+              <option
+                  key={cab.cabinet_id}
+                  value={cab.cabinet_id}
+                >
+                  №{cab.number} ({specs.find(spec => { return cab.specialitySpecialityId === spec.speciality_id }).name  })
+                </option>
+                )
+              )}
+            </Form.Select>}
             </Form>
         </Modal.Body>
         <Modal.Footer>

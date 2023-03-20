@@ -1,6 +1,6 @@
-const {Records, Timetable} = require('../models/models')
+const {Records, Timetable, Pacients, Prescriptions} = require('../models/models')
 const ApiError = require('../error/ApiError');
-const { Op } = require('sequelize');
+const { Op, Sequelize } = require('sequelize');
 class RecordController {
   async create(req, res, next) {
       if (!req.user) {
@@ -61,19 +61,58 @@ class RecordController {
     }
   }
   async getAll(req, res) {
-    let {doctorDoctorId, pacientPacientId, limit, page} = req.query
+    let { doctorDoctorId, pacientPacientId, limit, page, timetableTimetableId } = req.query
         page = page || 1
         limit = limit || 9
         let offset = page * limit - limit
         let record;
-        if (!doctorDoctorId && pacientPacientId) {
-            record = await Records.findAndCountAll({where:{pacientPacientId}, limit, offset})
+        if (timetableTimetableId) {
+          record = await Records.findAndCountAll({ 
+            where: { timetableTimetableId } ,
+            include: [
+              { model: Pacients } , 
+              { model: Prescriptions }
+            ],
+            order: [
+              ['start', 'ASC'],
+            ]
+          })
         }
-        if (doctorDoctorId && !pacientPacientId) {
-            record = await Records.findAndCountAll({where:{doctorDoctorId}, limit, offset})
+        else if (!doctorDoctorId && pacientPacientId) {
+            record = await Records.findAndCountAll({
+              where: { pacientPacientId },
+              include: [
+                { model: Pacients },
+                { model: Prescriptions }
+              ],
+              order: [
+                ['start', 'ASC'],
+              ]
+            })
         }
-        if (doctorDoctorId && pacientPacientId) {
-            record = await Records.findAndCountAll({where:{doctorDoctorId, pacientPacientId}, limit, offset})
+        else if (doctorDoctorId && !pacientPacientId) {
+            record = await Records.findAndCountAll({
+              where: { doctorDoctorId },
+              include: [
+                { model: Pacients },
+                { model: Prescriptions }
+              ],
+              order: [
+                ['start', 'ASC'],
+              ]
+            })
+        }
+        else if (doctorDoctorId && pacientPacientId) {
+            record = await Records.findAndCountAll({
+              where: { doctorDoctorId, pacientPacientId },
+              include: [
+                { model: Pacients },
+                { model: Prescriptions }
+              ],
+              order: [
+                ['start', 'ASC'],
+              ]
+            })
         }
     return res.json(record)
   }

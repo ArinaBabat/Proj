@@ -3,12 +3,12 @@ const ApiError = require('../error/ApiError');
 class PrescriptionController {
     async create(req, res, next) {
       try {
-        const {diagnostic, therapy, recordRecordId} = req.body
-        const candidate = await Prescriptions.findOne({where: {recordRecordId}})
+        const { diagnostic, therapy, record_id } = req.body
+        const candidate = await Prescriptions.findOne({where: {record_id}})
         if (candidate) {
             return next(ApiError.badRequest('Заключение по этому приёму уже существует'))
         }
-        const prescription = await Prescriptions.create({diagnostic, therapy, recordRecordId})
+        const prescription = await Prescriptions.create({diagnostic, therapy, record_id})
         return res.json(prescription)
       } catch (e) {
             next(ApiError.badRequest(e.message))
@@ -20,7 +20,7 @@ class PrescriptionController {
   }
   async getOne(req, res) {
     const { id } = req.params;
-    const prescription = await Prescriptions.findOne({ where: { prescription_id: id } });
+    const prescription = await Prescriptions.findOne({ where: { record_id: id } });
     return res.json(prescription);
   }
 }

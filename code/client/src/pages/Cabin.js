@@ -8,12 +8,12 @@ import { Context } from "../index";
 const Cabin = () => {
   const { timet } = useContext(Context)
   const { pacient } = useContext(Context);
-  const [doc, setDoc] = useState(pacient.user.doctorDoctorId);
-  const [mail, setMail] = useState(pacient.user.mail);
-  const [address, setAddress] = useState(pacient.user.address);
+  const [doc, setDoc] = useState(!!pacient.user.doctorDoctorId ? pacient.user.doctorDoctorId : '');
+  const [mail, setMail] = useState(!!pacient.user.mail ? pacient.user.mail : '');
+  const [address, setAddress] = useState(!!pacient.user.address ? pacient.user.address : '');
   const [loading, setLoading] = useState(true)
   useEffect(() => {
-    fetchDoctor().then(data => { timet.setDoc(data); console.log(data); setLoading(false) })
+    fetchDoctor().then(data => { timet.setDoc(data); setLoading(false) })
   }, [])
 
   const handleMail = async () => {

@@ -3,18 +3,25 @@ import React, { useContext, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Context } from "../index";
-import { fetchDoctor, fetchTimetable } from "../http/timAPI";
+import { fetchTimetable, fetchCabinet, fetchSpeciality, fetchDoctor } from "../http/timAPI";
 
 
 const NewRecord = () => {
-  const { timet } = useContext(Context)
-  const [tim, setTim] = useState('');
-  const [time, setTime] = useState("");
   const [loading1, setLoading1] = useState(true)
   const [loading2, setLoading2] = useState(true)
+  const [loading3, setLoading3] = useState(true)
+  const [loading4, setLoading4] = useState(true)
+  const [tims, setTims] = useState(null);
+  const [specs, setSpecs] = useState(null);
+  const [docs, setDocs] = useState(null);
+  const [cabs, setCabs] = useState(null);
+  const [tim, setTim] = useState('');
+  const [time, setTime] = useState('');
   useEffect(() => {
-    fetchTimetable().then(data => { timet.setTim(data); console.log(data); setLoading1(false) })
-    fetchDoctor().then(data => { timet.setDoc(data); console.log(data); setLoading2(false) })
+    fetchTimetable().then(data => { setTims(data.rows); setLoading1(false) })
+    fetchCabinet().then(data => { setCabs(data.rows); setLoading2(false) })
+    fetchDoctor().then(data => { setDocs(data.rows); setLoading3(false) })
+    fetchSpeciality().then(data => { setSpecs(data); setLoading4(false) })
   }, [])
 
   const addRec = async () => {
@@ -22,8 +29,16 @@ const NewRecord = () => {
       alert('Необходимо заполнить все поля');
       return
     }
+    let day = tims.find(t => {return t.timetable_id == tim}).start;
+    let startObj;
     try {
-      let data = await $authHost.post('api/record/create', { timetableTimetableId: tim, doctorDoctorId: timet.tim.rows.find((t) => { return t.timetable_id == tim }).doctorDoctorId, time })
+      startObj = new Date(day.split('T')[0] + ' ' + time + '+03');
+    } catch (e) {
+      alert(e.message);
+    }
+    console.log(startObj.toString());
+    try {
+      let data = await $authHost.post('api/record/create', { timetableTimetableId: tim, start: startObj.toString() })
     } catch (e) {
       alert(e.response.data.message);
       return
@@ -57,13 +72,27 @@ const NewRecord = () => {
           setTim(e.target.value);
         }}>
           <option value="">Выбор дня</option>
-          {timet && timet.tim && timet.tim.rows && timet.tim.rows.map(tim =>
+          {cabs && specs && docs && tims && tims.map(tim =>
             <option
-              onClick={() => timet.setTim(tim)}
               key={tim.timetable_id}
               value={tim.timetable_id}
             >
-              {tim.timetable_id}, {tim.day}, начало: {(tim.start_of_admission-tim.start_of_admission%60)/60}:{tim.start_of_admission%60||"00"}, конец: {(tim.end_of_reception-tim.end_of_reception%60)/60}:{tim.end_of_reception%60||"00"}
+              {specs.find((spec) => {
+                  return spec.speciality_id === docs.find((doc) => {
+                    return doc.doctor_id === tim.doctorDoctorId
+                  }).specialitySpecialityId
+                }).name}, {
+                  docs.find((doc) => {
+                    return doc.doctor_id === tim.doctorDoctorId
+                  }).first_name} {
+                  docs.find((doc) => {
+                    return doc.doctor_id === tim.doctorDoctorId
+                  }).last_name}, {(new Date(tim.start)).toDateString()}, Начало: {
+                (new Date(tim.start)).toTimeString()} Конец: {
+                (new Date(tim.end)).toTimeString()} Кабинет: {
+                  cabs.find((cab) => {
+                return tim.cabinetCabinetId === cab.cabinet_id
+              }).number}
             </option>
           )}
     </Form.Select>
@@ -73,7 +102,7 @@ const NewRecord = () => {
           onChange={e => {
             setTime(e.target.value);
           }}
-          placeholder={"Начало приёма"}
+          placeholder={"Начало приёма (чч:мм)"}
         />
         <Button className="mt-4 p-2" variant="outline-primary" onClick={addRec}>Записаться</Button>
     </Form>

@@ -2,47 +2,61 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Table from 'react-bootstrap/Table';
 import Modal from "react-bootstrap/Modal";
-import {Form, Button} from "react-bootstrap";
+import {Container, Form, Button} from "react-bootstrap";
 import {Context} from "../index";
-import {fetchTimetable, fetchCabinet, fetchDoctor} from "../http/timAPI";
+import {fetchTimetable, fetchCabinet, fetchDoctor, fetchSpeciality} from "../http/timAPI";
+import { MY_RECORDS_ROUTE } from '../utils/consts';
+import { useNavigate } from 'react-router-dom';
 
 const MyTimetable = () => {
-  const { timet } = useContext(Context)
   const { doct } = useContext(Context)
-  const [loading, setLoading] = useState(0)
+  const navigate = useNavigate()
+  const [loading1, setLoading1] = useState(true)
+  const [loading2, setLoading2] = useState(true)
+  const [loading3, setLoading3] = useState(true)
+  const [loading4, setLoading4] = useState(true)
+  const [tims, setTims] = useState(null);
+  const [specs, setSpecs] = useState(null);
+  const [docs, setDocs] = useState(null);
+  const [cabs, setCabs] = useState(null);
   useEffect(() => {
-    fetchCabinet().then(data => { timet.setCab(data); setLoading(1) })
-    fetchDoctor().then(data => { timet.setDoc(data); console.log(data); setLoading(2) })
-    fetchTimetable(undefined, undefined, doct.doc.id).then(data => { timet.setTim(data); console.log(data); setLoading(3) })
-    }, [])
+    fetchTimetable(undefined, undefined, doct.doc.id).then(data => { setTims(data.rows); setLoading1(false) })
+    fetchCabinet().then(data => { setCabs(data.rows); setLoading2(false) })
+    fetchDoctor().then(data => { setDocs(data.rows); setLoading3(false) })
+    fetchSpeciality().then(data => { setSpecs(data); setLoading4(false) })
+  }, [])
   return (
-    <Table striped>
-      <thead>
-        <tr>
-          <th>День недели</th>
-          <th>Начало приёма</th>
-          <th>Конец приёма</th>
-          <th>Кабинет</th>
-        </tr>
-      </thead>
-      <tbody>
-      {timet && timet.tim && timet.tim.rows && timet.tim.rows.map(tim =>
-        <tr
-          key={tim.timetable_id}
-        >
-        <td>{tim.day}</td>
-        <td>{(tim.start_of_admission-tim.start_of_admission%60)/60}:{tim.start_of_admission%60||"00"}</td>
-        <td>{(tim.end_of_reception-tim.end_of_reception%60)/60}:{tim.end_of_reception%60||"00"}</td>
-        <td>{tim.cabinetCabinetId}</td>
-        <td><Button variant="outline-primary"
-        >
-          Записи
-        </Button>
-          </td>
-      </tr>
-      )}
-      </tbody>
-    </Table>
+    <Container
+      className="mt-4 mb-2"
+      style={{height: window.innerHeight*1.25}}
+      >
+      <div>
+        <Table responsive="md">
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>Начало приёма</th>
+              <th>Конец приёма</th>
+              <th>Кабинет</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cabs && specs && docs && tims && tims.map(tim =>
+              <tr key={tim.timetable_id}>
+                <td>{(new Date(tim.start)).toDateString()}</td>
+                <td>{(new Date(tim.start)).toTimeString()}</td>
+                <td>{(new Date(tim.end)).toTimeString()}</td>
+                <td>{cabs.find((cab) => {
+                  return tim.cabinetCabinetId === cab.cabinet_id
+                }).number}</td>
+                <td><Button onClick={() => navigate(MY_RECORDS_ROUTE + `/${tim.timetable_id}`)}>Записи</Button></td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
+
+    </div>
+    </Container>
   );
 };
 export default MyTimetable;

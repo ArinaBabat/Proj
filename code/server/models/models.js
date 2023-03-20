@@ -25,7 +25,14 @@ const Records = sequelize.define('record', {
     end: { type: DataTypes.DATE, allowNull: false },
 })
 const Prescriptions = sequelize.define('prescription', {
-    prescription_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    record_id: {
+      type: DataTypes.INTEGER, 
+      primaryKey: true, 
+      references: {
+        model: 'records',
+        key: 'record_id'
+      }
+    },
     diagnostic: {type: DataTypes.STRING},
     therapy: {type: DataTypes.STRING},
 })
@@ -48,8 +55,12 @@ Records.belongsTo(Pacients)
 Timetable.hasMany(Records)
 Records.belongsTo(Timetable)
 
-Records.hasOne(Prescriptions)
-Prescriptions.belongsTo(Records)
+Records.hasOne(Prescriptions, {
+  foreignKey: 'record_id'
+});
+Prescriptions.belongsTo(Records, {
+  foreignKey: 'record_id', foreignKeyConstraint: true
+});
 
 Cabinets.hasMany(Timetable)
 Timetable.belongsTo(Cabinets)
